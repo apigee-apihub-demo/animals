@@ -1,0 +1,109 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Fauna Flamingos API
+servers:
+  - url: https://apigee-apihub-demo.github.io
+paths:
+  /flamingos:
+    get:
+      summary: List all flamingos
+      operationId: listFlamingos
+      tags:
+        - flamingos
+      parameters:
+        - name: limit
+          in: query
+          description: How many flamingos to return at one time (max 100)
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: A paged array of flamingos
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Flamingos'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create flamingo
+      operationId: createFlamingo
+      tags:
+        - flamingos
+      responses:
+        "201":
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /flamingos/{flamingoId}:
+    get:
+      summary: Info for a specific flamingo
+      operationId: getFlamingo
+      tags:
+        - flamingos
+      parameters:
+        - name: flamingoId
+          in: path
+          description: The id of the flamingo to retrieve
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Flamingo'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    Flamingo:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        tag:
+          type: string
+    Flamingos:
+      type: array
+      maxItems: 100
+      items:
+        $ref: '#/components/schemas/Flamingo'
