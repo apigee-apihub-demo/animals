@@ -1,0 +1,109 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Fauna Lemurs API
+servers:
+  - url: https://apigee-apihub-demo.github.io
+paths:
+  /lemurs:
+    get:
+      summary: List all lemurs
+      operationId: listLemurs
+      tags:
+        - lemurs
+      parameters:
+        - name: limit
+          in: query
+          description: How many lemurs to return at one time (max 100)
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: A paged array of lemurs
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lemurs'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create lemur
+      operationId: createLemur
+      tags:
+        - lemurs
+      responses:
+        "201":
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /lemurs/{lemurId}:
+    get:
+      summary: Info for a specific lemur
+      operationId: getLemur
+      tags:
+        - lemurs
+      parameters:
+        - name: lemurId
+          in: path
+          description: The id of the lemur to retrieve
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lemur'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    Lemur:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        tag:
+          type: string
+    Lemurs:
+      type: array
+      maxItems: 100
+      items:
+        $ref: '#/components/schemas/Lemur'

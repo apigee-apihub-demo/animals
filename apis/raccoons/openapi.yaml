@@ -1,0 +1,109 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Fauna Raccoons API
+servers:
+  - url: https://apigee-apihub-demo.github.io
+paths:
+  /raccoons:
+    get:
+      summary: List all raccoons
+      operationId: listRaccoons
+      tags:
+        - raccoons
+      parameters:
+        - name: limit
+          in: query
+          description: How many raccoons to return at one time (max 100)
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: A paged array of raccoons
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Raccoons'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create raccoon
+      operationId: createRaccoon
+      tags:
+        - raccoons
+      responses:
+        "201":
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /raccoons/{raccoonId}:
+    get:
+      summary: Info for a specific raccoon
+      operationId: getRaccoon
+      tags:
+        - raccoons
+      parameters:
+        - name: raccoonId
+          in: path
+          description: The id of the raccoon to retrieve
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Raccoon'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    Raccoon:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        tag:
+          type: string
+    Raccoons:
+      type: array
+      maxItems: 100
+      items:
+        $ref: '#/components/schemas/Raccoon'

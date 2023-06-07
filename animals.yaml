@@ -1,0 +1,131 @@
+animals:
+  - name: Aardvark
+    class: Mammals
+    legs: 4
+    weight: 150-200 pounds
+    lifespan: 20-25 years
+  - name: Bandicoot
+    class: Marsupials
+    legs: 4
+    weight: 1-3 pounds
+    lifespan: 5-10 years
+  - name: Crocodile
+    class: Reptiles
+    legs: 4
+    weight: 100-1,000 pounds
+    lifespan: 70-100 years
+  - name: Dolphin
+    class: Mammals
+    legs: 0
+    weight: 300-1,000 pounds
+    lifespan: 30-40 years
+  - name: Elephant
+    class: Mammals
+    legs: 4
+    weight: 4,000-14,000 pounds
+    lifespan: 70-75 years
+  - name: Flamingo
+    class: Birds
+    legs: 2
+    weight: 2-5 pounds
+    lifespan: 20-30 years
+  - name: Giraffe
+    class: Mammals
+    legs: 4
+    weight: 1,500-2,800 pounds
+    lifespan: 25-30 years
+  - name: Hedgehog
+    class: Mammals
+    legs: 4
+    weight: 0.5-2 pounds
+    lifespan: 10-12 years
+  - name: Iguana
+    class: Reptiles
+    legs: 4
+    weight: 1-20 pounds
+    lifespan: 20-30 years
+  - name: Jaguar
+    class: Mammals
+    legs: 4
+    weight: 100-250 pounds
+    lifespan: 12-15 years
+  - name: Kangaroo
+    class: Marsupials
+    legs: 4
+    weight: 10-200 pounds
+    lifespan: 18-25 years
+  - name: Lemur
+    class: Mammals
+    legs: 4
+    weight: 1-2 pounds
+    lifespan: 15-20 years
+  - name: Monkey
+    class: Mammals
+    legs: 4
+    weight: 2-200 pounds
+    lifespan: 15-30 years
+  - name: Nightingale
+    class: Birds
+    legs: 2
+    weight: 0.5-1 pound
+    lifespan: 10-15 years
+  - name: Ostrich
+    class: Birds
+    legs: 2
+    weight: 250-350 pounds
+    lifespan: 50-70 years
+  - name: Porcupine
+    class: Mammals
+    legs: 4
+    weight: 15-100 pounds
+    lifespan: 20-30 years
+  - name: Quokka
+    class: Marsupials
+    legs: 4
+    weight: 2-3 pounds
+    lifespan: 7-10 years
+  - name: Raccoon
+    class: Mammals
+    legs: 4
+    weight: 8-20 pounds
+    lifespan: 12-20 years
+  - name: Salamander
+    class: Amphibians
+    legs: 4-40
+    weight: 0.1-10 pounds
+    lifespan: 5-20 years
+  - name: Tortoise
+    class: Reptiles
+    legs: 4
+    weight: 1-1,000 pounds
+    lifespan: 50-150 years
+  - name: Uakari
+    class: Mammals
+    legs: 4
+    weight: 2-4 pounds
+    lifespan: 20-25 years
+  - name: Vulture
+    class: Birds
+    legs: 2
+    weight: 10-20 pounds
+    lifespan: 20
+  - name: Whale
+    class: Mammals
+    legs: 0
+    weight: 150-200 tons
+    lifespan: 50-80 years
+  - name: Xerus
+    class: Mammals
+    legs: 4
+    weight: 1-3 pounds
+    lifespan: 10-15 years
+  - name: Yak
+    class: Mammals
+    legs: 4
+    weight: 1,000-1,500 pounds
+    lifespan: 20-25 years
+  - name: Zebra
+    class: Mammals
+    legs: 4
+    weight: 500-1,000 pounds
+    lifespan: 20-30 years

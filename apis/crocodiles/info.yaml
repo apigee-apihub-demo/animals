@@ -1,0 +1,59 @@
+apiVersion: apigeeregistry/v1
+kind: API
+metadata:
+  name: fauna-crocodiles
+  labels:
+    apihub-business-unit: fauna
+    apihub-lifecycle: production
+    apihub-style: apihub-openapi
+    apihub-target-users: public
+    apihub-team: fauna-reptiles
+    categories: reptiles
+    provider: fauna
+    source: generate-animal-apis
+    updated: "2023-06-07"
+  annotations:
+    apihub-primary-contact: crocodiles@apigee-apihub-demo.github.io
+    apihub-primary-contact-description: Crocodile Support Team
+    legs: "4"
+    lifespan: 70-100 years
+    weight: 100-1,000 pounds
+data:
+  displayName: Fauna Crocodiles API
+  description: The Fauna Crocodiles API allows users to manage a collection of crocodiles.
+  recommendedVersion: v1
+  versions:
+    - metadata:
+        name: v1
+        labels:
+          source: generate-animal-apis
+          updated: "2023-06-07"
+      data:
+        displayName: v1
+        state: production
+        primarySpec: openapi
+        specs:
+          - metadata:
+              name: openapi
+              labels:
+                source: generate-animal-apis
+                updated: "2023-06-07"
+            data:
+              filename: openapi.yaml
+              mimeType: application/x.openapi+gzip;version=3.0
+  artifacts:
+    - kind: ReferenceList
+      metadata:
+        name: apihub-related
+        labels:
+          source: generate-animal-apis
+          updated: "2023-06-07"
+      data:
+        displayName: Related Links
+        description: ""
+        references:
+          - id: wikipedia
+            displayName: Wikipedia
+            category: reference
+            resource: ""
+            uri: https://en.wikipedia.org/wiki/Crocodile
