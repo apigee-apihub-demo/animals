@@ -1,0 +1,109 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Fauna Nightingales API
+servers:
+  - url: https://apigee-apihub-demo.github.io
+paths:
+  /nightingales:
+    get:
+      summary: List all nightingales
+      operationId: listNightingales
+      tags:
+        - nightingales
+      parameters:
+        - name: limit
+          in: query
+          description: How many nightingales to return at one time (max 100)
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: A paged array of nightingales
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Nightingales'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create nightingale
+      operationId: createNightingale
+      tags:
+        - nightingales
+      responses:
+        "201":
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /nightingales/{nightingaleId}:
+    get:
+      summary: Info for a specific nightingale
+      operationId: getNightingale
+      tags:
+        - nightingales
+      parameters:
+        - name: nightingaleId
+          in: path
+          description: The id of the nightingale to retrieve
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Nightingale'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    Nightingale:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        tag:
+          type: string
+    Nightingales:
+      type: array
+      maxItems: 100
+      items:
+        $ref: '#/components/schemas/Nightingale'

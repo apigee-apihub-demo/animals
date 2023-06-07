@@ -1,0 +1,109 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Fauna Bandicoots API
+servers:
+  - url: https://apigee-apihub-demo.github.io
+paths:
+  /bandicoots:
+    get:
+      summary: List all bandicoots
+      operationId: listBandicoots
+      tags:
+        - bandicoots
+      parameters:
+        - name: limit
+          in: query
+          description: How many bandicoots to return at one time (max 100)
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: A paged array of bandicoots
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bandicoots'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create bandicoot
+      operationId: createBandicoot
+      tags:
+        - bandicoots
+      responses:
+        "201":
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /bandicoots/{bandicootId}:
+    get:
+      summary: Info for a specific bandicoot
+      operationId: getBandicoot
+      tags:
+        - bandicoots
+      parameters:
+        - name: bandicootId
+          in: path
+          description: The id of the bandicoot to retrieve
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bandicoot'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Bandicoot:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        tag:
+          type: string
+    Bandicoots:
+      type: array
+      maxItems: 100
+      items:
+        $ref: '#/components/schemas/Bandicoot'
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string

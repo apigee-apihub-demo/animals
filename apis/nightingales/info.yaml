@@ -1,0 +1,59 @@
+apiVersion: apigeeregistry/v1
+kind: API
+metadata:
+  name: fauna-nightingales
+  labels:
+    apihub-business-unit: fauna
+    apihub-lifecycle: production
+    apihub-style: apihub-openapi
+    apihub-target-users: public
+    apihub-team: fauna-birds
+    categories: birds
+    provider: fauna
+    source: generate-animal-apis
+    updated: "2023-06-07"
+  annotations:
+    apihub-primary-contact: nightingales@apigee-apihub-demo.github.io
+    apihub-primary-contact-description: Nightingale Support Team
+    legs: "2"
+    lifespan: 10-15 years
+    weight: 0.5-1 pound
+data:
+  displayName: Fauna Nightingales API
+  description: The Fauna Nightingales API allows users to manage a collection of nightingales.
+  recommendedVersion: v1
+  versions:
+    - metadata:
+        name: v1
+        labels:
+          source: generate-animal-apis
+          updated: "2023-06-07"
+      data:
+        displayName: v1
+        state: production
+        primarySpec: openapi
+        specs:
+          - metadata:
+              name: openapi
+              labels:
+                source: generate-animal-apis
+                updated: "2023-06-07"
+            data:
+              filename: openapi.yaml
+              mimeType: application/x.openapi+gzip;version=3.0
+  artifacts:
+    - kind: ReferenceList
+      metadata:
+        name: apihub-related
+        labels:
+          source: generate-animal-apis
+          updated: "2023-06-07"
+      data:
+        displayName: Related Links
+        description: ""
+        references:
+          - id: wikipedia
+            displayName: Wikipedia
+            category: reference
+            resource: ""
+            uri: https://en.wikipedia.org/wiki/Nightingale

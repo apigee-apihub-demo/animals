@@ -1,0 +1,109 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Fauna Elephants API
+servers:
+  - url: https://apigee-apihub-demo.github.io
+paths:
+  /elephants:
+    get:
+      summary: List all elephants
+      operationId: listElephants
+      tags:
+        - elephants
+      parameters:
+        - name: limit
+          in: query
+          description: How many elephants to return at one time (max 100)
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: A paged array of elephants
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Elephants'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create elephant
+      operationId: createElephant
+      tags:
+        - elephants
+      responses:
+        "201":
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /elephants/{elephantId}:
+    get:
+      summary: Info for a specific elephant
+      operationId: getElephant
+      tags:
+        - elephants
+      parameters:
+        - name: elephantId
+          in: path
+          description: The id of the elephant to retrieve
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Elephant'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Elephant:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        tag:
+          type: string
+    Elephants:
+      type: array
+      maxItems: 100
+      items:
+        $ref: '#/components/schemas/Elephant'
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
