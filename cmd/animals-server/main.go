@@ -15,7 +15,6 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"net/http"
 
@@ -29,29 +28,28 @@ type animal struct {
 	Tag  string `json:"tag"`
 }
 
-// animals slice to seed animal data.
-var animals = []animal{
-	{ID: "1", Name: "Tardar Sauce", Tag: "cat"},
-	{ID: "2", Name: "Bo", Tag: "dog"},
-	{ID: "3", Name: "Toto", Tag: "dog"},
-}
+var animals = map[string]animal{}
 
 func main() {
-	var collection string
-	flag.StringVar(&collection, "animals", "animals", "the animals in this collection")
-	flag.Parse()
+	run(8080)
+}
 
+func run(port int) {
 	router := gin.Default()
-	router.GET(fmt.Sprintf("/v1/%s", collection), getAnimals)
-	router.GET(fmt.Sprintf("/v1/%s/:id", collection), getAnimalByID)
-	router.POST(fmt.Sprintf("/v1/%s", collection), postAnimals)
+	router.GET("/v1/:collection", getAnimals)
+	router.GET("/v1/:collection/:id", getAnimalByID)
+	router.POST("/v1/:collection", postAnimals)
 
-	router.Run("0.0.0.0:8080")
+	router.Run(fmt.Sprintf("0.0.0.0:%d", port))
 }
 
 // getAnimals responds with the list of all animals as JSON.
 func getAnimals(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, animals)
+	values := []animal{}
+	for _, a := range animals {
+		values = append(values, a)
+	}
+	c.IndentedJSON(http.StatusOK, values)
 }
 
 // postAnimals adds an animal from JSON received in the request body.
@@ -63,8 +61,8 @@ func postAnimals(c *gin.Context) {
 		return
 	}
 
-	// Add the new animal to the slice.
-	animals = append(animals, newAnimal)
+	// Add the new animal.
+	animals[newAnimal.ID] = newAnimal
 	c.IndentedJSON(http.StatusCreated, newAnimal)
 }
 
@@ -73,13 +71,9 @@ func postAnimals(c *gin.Context) {
 func getAnimalByID(c *gin.Context) {
 	id := c.Param("id")
 
-	// Loop through the list of animals, looking for
-	// an animal whose ID value matches the parameter.
-	for _, a := range animals {
-		if a.ID == id {
-			c.IndentedJSON(http.StatusOK, a)
-			return
-		}
+	if a, ok := animals[id]; ok {
+		c.IndentedJSON(http.StatusOK, a)
+		return
 	}
 	c.IndentedJSON(http.StatusNotFound, gin.H{
 		"code":    http.StatusNotFound,

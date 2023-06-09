@@ -6,6 +6,7 @@ require (
 	github.com/apigee/registry v0.6.12
 	github.com/gertd/go-pluralize v0.2.1
 	github.com/gin-gonic/gin v1.9.1
+	github.com/google/go-cmp v0.5.9
 	golang.org/x/text v0.9.0
 	gopkg.in/yaml.v3 v3.0.1
 )
