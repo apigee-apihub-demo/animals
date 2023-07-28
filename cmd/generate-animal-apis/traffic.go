@@ -1,4 +1,4 @@
-// Copyright 2023 Google LLC. All Rights Reserved.
+// Copyright 2023 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,21 +14,16 @@
 
 package main
 
-import (
-	"context"
-	"os"
+import "github.com/spf13/cobra"
 
-	"github.com/spf13/cobra"
-)
-
-func main() {
-	ctx := context.Background()
-
-	cmd := &cobra.Command{}
-	cmd.AddCommand(enrollmentsCommand())
-	cmd.AddCommand(trafficCommand())
-	cmd.AddCommand(runtimeCommand())
-	if err := cmd.ExecuteContext(ctx); err != nil {
-		os.Exit(1)
+func trafficCommand() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "traffic",
+		Short: "Generate YAML for mock traffic signals",
+		Args:  cobra.NoArgs,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 	}
+	return cmd
 }

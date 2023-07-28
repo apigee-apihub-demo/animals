@@ -1,4 +1,4 @@
-// Copyright 2023 Google LLC. All Rights Reserved.
+// Copyright 2023 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,20 +15,32 @@
 package main
 
 import (
-	"context"
-	"os"
+	"io/ioutil"
 
-	"github.com/spf13/cobra"
+	"gopkg.in/yaml.v3"
 )
 
-func main() {
-	ctx := context.Background()
+type Animals struct {
+	Animals []Animal `yaml:"animals"`
+}
 
-	cmd := &cobra.Command{}
-	cmd.AddCommand(enrollmentsCommand())
-	cmd.AddCommand(trafficCommand())
-	cmd.AddCommand(runtimeCommand())
-	if err := cmd.ExecuteContext(ctx); err != nil {
-		os.Exit(1)
+type Animal struct {
+	Name     string `yaml:"name"`
+	Class    string `yaml:"class"`
+	Legs     string `yaml:"legs"`
+	Weight   string `yaml:"weight"`
+	Lifespan string `yaml:"lifespan"`
+}
+
+func readAnimals(filename string) (*Animals, error) {
+	yamlFile, err := ioutil.ReadFile(filename)
+	if err != nil {
+		return nil, err
 	}
+	var animals Animals
+	err = yaml.Unmarshal(yamlFile, &animals)
+	if err != nil {
+		return nil, err
+	}
+	return &animals, nil
 }

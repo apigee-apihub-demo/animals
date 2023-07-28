@@ -80,3 +80,16 @@ type OpenAPISchema struct {
 	MaxItems   int                       `yaml:"maxItems,omitempty"`
 	Items      *OpenAPISchema            `yaml:"items,omitempty"`
 }
+
+func errorResponse() *OpenAPIResponse {
+	return &OpenAPIResponse{
+		Description: "unexpected error",
+		Content: map[string]*OpenAPIContent{
+			"application/json": {
+				Schema: &OpenAPISchema{
+					Ref: "#/components/schemas/Error",
+				},
+			},
+		},
+	}
+}
