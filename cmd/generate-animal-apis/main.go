@@ -115,6 +115,7 @@ func (animal *Animal) generateAPI() error {
 					"apihub-lifecycle":     "production",
 					"apihub-style":         "apihub-openapi",
 					"apihub-target-users":  "public",
+					"apihub-kind":          "enrolled",
 					"apihub-team":          provider + "-" + strings.ToLower(animal.Class),
 					"categories":           strings.ToLower(animal.Class),
 					"provider":             provider,
