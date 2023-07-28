@@ -4,6 +4,7 @@ metadata:
   name: fauna-xeruses
   labels:
     apihub-business-unit: fauna
+    apihub-kind: enrolled
     apihub-lifecycle: production
     apihub-style: apihub-openapi
     apihub-target-users: public
@@ -11,7 +12,7 @@ metadata:
     categories: mammals
     provider: fauna
     source: generate-animal-apis
-    updated: "2023-06-07"
+    updated: "2023-07-28"
   annotations:
     apihub-primary-contact: xeruses@apigee-apihub-demo.github.io
     apihub-primary-contact-description: Xerus Support Team
@@ -27,7 +28,7 @@ data:
         name: v1
         labels:
           source: generate-animal-apis
-          updated: "2023-06-07"
+          updated: "2023-07-28"
       data:
         displayName: v1
         state: production
@@ -37,7 +38,7 @@ data:
               name: openapi
               labels:
                 source: generate-animal-apis
-                updated: "2023-06-07"
+                updated: "2023-07-28"
             data:
               filename: openapi.yaml
               mimeType: application/x.openapi+gzip;version=3.0
@@ -47,7 +48,7 @@ data:
         name: apihub-related
         labels:
           source: generate-animal-apis
-          updated: "2023-06-07"
+          updated: "2023-07-28"
       data:
         displayName: Related Links
         description: ""
