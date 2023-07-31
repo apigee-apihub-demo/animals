@@ -19,17 +19,15 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-	"time"
 
 	"github.com/apigee/registry/pkg/application/apihub"
 	"github.com/apigee/registry/pkg/encoding"
 	pluralize "github.com/gertd/go-pluralize"
 	"github.com/spf13/cobra"
-	"golang.org/x/text/cases"
-	"golang.org/x/text/language"
 )
 
 const runtime = "runtime"
+const organization = "apigee-apihub-demo"
 
 func runtimeCommand() *cobra.Command {
 	var filename string
@@ -55,8 +53,6 @@ func runtimeCommand() *cobra.Command {
 }
 
 func generateRuntimeMocks(animal *Animal) error {
-	upperSingular := animal.Name
-	//lowerSingular := strings.ToLower(upperSingular)
 	upperPlural := pluralize.NewClient().Plural(animal.Name)
 	lowerPlural := strings.ToLower(upperPlural)
 
@@ -70,86 +66,59 @@ func generateRuntimeMocks(animal *Animal) error {
 	}
 
 	// Generate info.yaml.
-	updated := time.Now().Format("2006-01-02")
-	referenceData, err := encoding.NodeForMessage(&apihub.ReferenceList{
-		DisplayName: "Related Links",
+	proxyDependenciesData, err := encoding.NodeForMessage(&apihub.ReferenceList{
+		DisplayName: "Apigee Dependencies",
+		Description: "Links to dependant Apigee resources.",
 		References: []*apihub.ReferenceList_Reference{
 			{
-				Id:          "wikipedia",
-				DisplayName: "Wikipedia",
-				Category:    "reference",
-				Uri:         "https://en.wikipedia.org/wiki/" + upperSingular,
+				Id:          "petstore",
+				DisplayName: "petstore (Apigee)",
+				Category:    "",
+				Uri:         "https://console.cloud.google.com/apigee/proxies/petstore/overview?project=apigee-apihub-demo",
 			},
 		},
 	})
 	if err != nil {
 		return err
 	}
-	apiTitle := cases.Title(language.English).String(apiID)
-	displayName := cases.Title(language.English).String(provider) + " " + apiTitle + " API"
-	api := &encoding.Api{
+	proxy := &encoding.Api{
 		Header: encoding.Header{
 			ApiVersion: "apigeeregistry/v1",
 			Kind:       "API",
 			Metadata: encoding.Metadata{
-				Name: provider + "-" + apiID,
+				Name: organization + "-" + provider + "-" + apiID + "-proxy",
 				Labels: map[string]string{
-					"apihub-business-unit": provider,
-					"apihub-lifecycle":     "production",
-					"apihub-style":         "apihub-openapi",
-					"apihub-target-users":  "public",
-					"apihub-kind":          "enrolled",
-					"apihub-team":          provider + "-" + strings.ToLower(animal.Class),
-					"categories":           strings.ToLower(animal.Class),
-					"provider":             provider,
-					"updated":              updated,
+					"apihub-business-unit": organization,
+					"apihub-kind":          "proxy",
 					"source":               source,
 				},
 				Annotations: map[string]string{
-					"apihub-primary-contact":             lowerPlural + "@apigee-apihub-demo.github.io",
-					"apihub-primary-contact-description": upperSingular + " Support Team",
-					"legs":                               animal.Legs,
-					"weight":                             animal.Weight,
-					"lifespan":                           animal.Lifespan,
+					"apigee-proxy": organization + "/apis/" + provider + "-" + apiID,
 				},
 			},
 		},
 		Data: encoding.ApiData{
-			DisplayName:        displayName,
-			Description:        "The " + cases.Title(language.English).String(provider) + " " + apiTitle + " API allows users to manage a collection of " + lowerPlural + ".",
+			DisplayName:        organization + " proxy: " + provider + "-" + apiID,
 			RecommendedVersion: "v1",
-			ApiVersions: []*encoding.ApiVersion{
+			ApiDeployments: []*encoding.ApiDeployment{
 				{
 					Header: encoding.Header{
 						Metadata: encoding.Metadata{
-							Name: "v1",
+							Name: "bar-org",
 							Labels: map[string]string{
-								"updated": updated,
-								"source":  source,
+								"apihub-gateway": "apihub-google-cloud-apigee",
+							},
+							Annotations: map[string]string{
+								"apigee-envgroup":       "organizations/apigee-apihub-demo/envgroups/bar",
+								"apigee-environment":    "organizations/apigee-apihub-demo/environments/test-env",
+								"apigee-proxy-revision": "organizations/apigee-apihub-demo/apis/petstore/revisions/1",
+								"message-count-7-days":  "2",
 							},
 						},
 					},
-					Data: encoding.ApiVersionData{
-						DisplayName: "v1",
-						State:       "production",
-						PrimarySpec: "openapi",
-						ApiSpecs: []*encoding.ApiSpec{
-							{
-								Header: encoding.Header{
-									Metadata: encoding.Metadata{
-										Name: "openapi",
-										Labels: map[string]string{
-											"updated": updated,
-											"source":  source,
-										},
-									},
-								},
-								Data: encoding.ApiSpecData{
-									MimeType: "application/x.openapi+gzip;version=3.0",
-									FileName: "openapi.yaml",
-								},
-							},
-						},
+					Data: encoding.ApiDeploymentData{
+						DisplayName: "test-env (bar.org)",
+						EndpointURI: "bar.org",
 					},
 				},
 			},
@@ -158,19 +127,97 @@ func generateRuntimeMocks(animal *Animal) error {
 					Header: encoding.Header{
 						Kind: "ReferenceList",
 						Metadata: encoding.Metadata{
-							Name: "apihub-related",
+							Name: "apihub-dependencies",
 							Labels: map[string]string{
-								"updated": updated,
-								"source":  source,
+								"source": source,
 							},
 						},
 					},
-					Data: *referenceData,
+					Data: *proxyDependenciesData,
 				},
 			},
 		},
 	}
-	infoBytes, err := encoding.EncodeYAML(api)
+	productProxiesData, err := encoding.NodeForMessage(&apihub.ReferenceList{
+		DisplayName: "Related Resources",
+		Description: "Links to resources in the registry.",
+		References: []*apihub.ReferenceList_Reference{
+			{
+				Id:          "apigee-apihub-demo-petstore-proxy",
+				DisplayName: "apigee-apihub-demo proxy: petstore",
+				Resource:    "projects/apigee-apihub-demo/locations/global/apis/apigee-apihub-demo-petstore-proxy",
+			},
+		},
+	})
+	if err != nil {
+		return err
+	}
+	productDependenciesData, err := encoding.NodeForMessage(&apihub.ReferenceList{
+		DisplayName: "Apigee Dependencies",
+		Description: "Links to dependant Apigee resources.",
+		References: []*apihub.ReferenceList_Reference{
+			{
+				Id:          "petstore",
+				DisplayName: "petstore (Apigee)",
+				Category:    "",
+				Uri:         "https://console.cloud.google.com/apigee/apiproducts/product/petstore/overview?project=apigee-apihub-demo",
+			},
+		},
+	})
+	if err != nil {
+		return err
+	}
+	product := &encoding.Api{
+		Header: encoding.Header{
+			ApiVersion: "apigeeregistry/v1",
+			Kind:       "API",
+			Metadata: encoding.Metadata{
+				Name: organization + "-" + provider + "-" + apiID + "-product",
+				Labels: map[string]string{
+					"apihub-business-unit": organization,
+					"apihub-kind":          "product",
+					"apihub-target-users":  "public",
+				},
+				Annotations: map[string]string{
+					"apigee-product": "organizations/apigee-apihub-demo/apiproducts/petstore",
+				},
+			},
+		},
+		Data: encoding.ApiData{
+			DisplayName: organization + " product: " + provider + "-" + apiID,
+			Artifacts: []*encoding.Artifact{
+				{
+					Header: encoding.Header{
+						Kind: "ReferenceList",
+						Metadata: encoding.Metadata{
+							Name: "apihub-related",
+							Labels: map[string]string{
+								"source": source,
+							},
+						},
+					},
+					Data: *productProxiesData,
+				},
+				{
+					Header: encoding.Header{
+						Kind: "ReferenceList",
+						Metadata: encoding.Metadata{
+							Name: "apihub-dependencies",
+							Labels: map[string]string{
+								"source": source,
+							},
+						},
+					},
+					Data: *productDependenciesData,
+				},
+			},
+		},
+	}
+	list := &encoding.List{
+		Header: encoding.Header{ApiVersion: encoding.RegistryV1},
+		Items:  []interface{}{proxy, product},
+	}
+	infoBytes, err := encoding.EncodeYAML(list)
 	if err != nil {
 		return err
 	}
