@@ -16,7 +16,7 @@ package main
 
 type OpenAPI struct {
 	OpenAPI    string                  `yaml:"openapi"`
-	Info       *OpenAPIInfo            `yaml:"info"`
+	Info       *OpenAPIInfo            `yaml:"info,omitempty"`
 	Servers    []*OpenAPIServer        `yaml:"servers,omitempty"`
 	Paths      map[string]*OpenAPIPath `yaml:"paths"`
 	Components *OpenAPIComponents      `yaml:"components,omitempty"`

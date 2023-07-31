@@ -14,16 +14,186 @@
 
 package main
 
-import "github.com/spf13/cobra"
+import (
+	"fmt"
+	"os"
+	"path/filepath"
+	"strings"
+
+	"github.com/apigee/registry/pkg/application/apihub"
+	"github.com/apigee/registry/pkg/encoding"
+	pluralize "github.com/gertd/go-pluralize"
+	"github.com/spf13/cobra"
+)
 
 func trafficCommand() *cobra.Command {
+	var filename string
 	cmd := &cobra.Command{
 		Use:   "traffic",
 		Short: "Generate YAML for mock traffic signals",
 		Args:  cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) error {
+			animals, err := readAnimals(filename)
+			if err != nil {
+				return err
+			}
+			for i, animal := range animals.Animals {
+				if err = generateTraffic(i, &animal); err != nil {
+					return err
+				}
+			}
 			return nil
 		},
 	}
+	cmd.Flags().StringVar(&filename, "filename", "animals.yaml", "Animals definition file (YAML)")
 	return cmd
+}
+
+const traffic = "traffic"
+
+func generateTraffic(id int, animal *Animal) error {
+	upperPlural := pluralize.NewClient().Plural(animal.Name)
+	lowerPlural := strings.ToLower(upperPlural)
+
+	apiID := fmt.Sprintf("traffic-%d", id)
+	fmt.Printf("generating %+v API\n", apiID)
+
+	// Create output directory.
+	err := os.MkdirAll(filepath.Join(traffic, apiID), 0755)
+	if err != nil {
+		return err
+	}
+
+	// Generate info.yaml.
+	referenceData, err := encoding.NodeForMessage(&apihub.ReferenceList{
+		DisplayName: "Related Links",
+		References: []*apihub.ReferenceList_Reference{
+			{
+				Id:          "enrollment",
+				DisplayName: "Enrollment",
+				Category:    "enrollment",
+				Resource:    "projects/apigee-apihub-demo/locations/global/apis/" + strings.ToLower(lowerPlural),
+			},
+		},
+	})
+	if err != nil {
+		return err
+	}
+	api := &encoding.Api{
+		Header: encoding.Header{
+			ApiVersion: "apigeeregistry/v1",
+			Kind:       "API",
+			Metadata: encoding.Metadata{
+				Name: fmt.Sprintf("traffic-%d", id),
+				Labels: map[string]string{
+					"apihub-kind": "traffic",
+				},
+				Annotations: map[string]string{},
+			},
+		},
+		Data: encoding.ApiData{
+			DisplayName: fmt.Sprintf("API Traffic %d", id),
+			ApiVersions: []*encoding.ApiVersion{
+				{
+					Header: encoding.Header{
+						Metadata: encoding.Metadata{
+							Name: "v1",
+						},
+					},
+					Data: encoding.ApiVersionData{
+						DisplayName: "v1",
+						PrimarySpec: "openapi",
+						ApiSpecs: []*encoding.ApiSpec{
+							{
+								Header: encoding.Header{
+									Metadata: encoding.Metadata{
+										Name:   "openapi",
+										Labels: map[string]string{},
+									},
+								},
+								Data: encoding.ApiSpecData{
+									MimeType: "application/x.openapi+gzip;version=3.0",
+									FileName: "openapi.yaml",
+								},
+							},
+						},
+					},
+				},
+			},
+			ApiDeployments: []*encoding.ApiDeployment{
+				{
+					Header: encoding.Header{
+						Metadata: encoding.Metadata{
+							Name:        "location",
+							Labels:      map[string]string{},
+							Annotations: map[string]string{},
+						},
+					},
+					Data: encoding.ApiDeploymentData{
+						EndpointURI: "bar.org",
+					},
+				},
+			},
+			Artifacts: []*encoding.Artifact{
+				{
+					Header: encoding.Header{
+						Kind: "ReferenceList",
+						Metadata: encoding.Metadata{
+							Name:   "apihub-related",
+							Labels: map[string]string{},
+						},
+					},
+					Data: *referenceData,
+				},
+			},
+		},
+	}
+	infoBytes, err := encoding.EncodeYAML(api)
+	if err != nil {
+		return err
+	}
+	err = os.WriteFile(filepath.Join(traffic, apiID, "info.yaml"), infoBytes, 0644)
+	if err != nil {
+		return err
+	}
+
+	// Generate openapi.yaml
+	f := newOperationIDFactory()
+	openapi := &OpenAPI{
+		OpenAPI: "3.1.0",
+		Paths: map[string]*OpenAPIPath{
+			"/" + lowerPlural: {
+				Get: &OpenAPIOperation{
+					OperationID: f.next(),
+				},
+				Post: &OpenAPIOperation{
+					OperationID: f.next(),
+				},
+			},
+			"/" + lowerPlural + "/*": {
+				Get: &OpenAPIOperation{
+					OperationID: f.next(),
+				},
+			},
+		},
+	}
+	specBytes, err := encoding.EncodeYAML(openapi)
+	if err != nil {
+		return err
+	}
+	return os.WriteFile(filepath.Join(traffic, apiID, "openapi.yaml"), specBytes, 0644)
+}
+
+type operationIDFactory struct {
+	i int
+}
+
+func newOperationIDFactory() *operationIDFactory {
+	return &operationIDFactory{i: 0}
+}
+
+func (f *operationIDFactory) next() string {
+	s := fmt.Sprintf("op-%03d", f.i)
+	f.i++
+	return s
 }
