@@ -55,8 +55,11 @@ func generateTraffic(id int, animal *Animal) error {
 	upperPlural := pluralize.NewClient().Plural(animal.Name)
 	lowerPlural := strings.ToLower(upperPlural)
 
-	apiID := fmt.Sprintf("traffic-%d", id)
+	trafficID := fmt.Sprintf("%06d", id)
+	apiID := fmt.Sprintf("traffic-%s", trafficID)
 	fmt.Printf("generating %+v API\n", apiID)
+
+	enrolledApiID := provider + "-" + strings.ToLower(lowerPlural)
 
 	// Create output directory.
 	err := os.MkdirAll(filepath.Join(traffic, apiID), 0755)
@@ -67,12 +70,13 @@ func generateTraffic(id int, animal *Animal) error {
 	// Generate info.yaml.
 	referenceData, err := encoding.NodeForMessage(&apihub.ReferenceList{
 		DisplayName: "Related Links",
+		Description: "Defines a list of related resources",
 		References: []*apihub.ReferenceList_Reference{
 			{
-				Id:          "enrollment",
-				DisplayName: "Enrollment",
-				Category:    "enrollment",
-				Resource:    "projects/apigee-apihub-demo/locations/global/apis/" + strings.ToLower(lowerPlural),
+				Id:          enrolledApiID,
+				DisplayName: "Enrolled API",
+				Category:    "apihub-organization-apis",
+				Resource:    "projects/apigee-apihub-demo/locations/global/apis/" + enrolledApiID,
 			},
 		},
 	})
@@ -84,7 +88,7 @@ func generateTraffic(id int, animal *Animal) error {
 			ApiVersion: "apigeeregistry/v1",
 			Kind:       "API",
 			Metadata: encoding.Metadata{
-				Name: fmt.Sprintf("traffic-%d", id),
+				Name: apiID,
 				Labels: map[string]string{
 					"apihub-kind": "traffic",
 				},
@@ -92,7 +96,7 @@ func generateTraffic(id int, animal *Animal) error {
 			},
 		},
 		Data: encoding.ApiData{
-			DisplayName: fmt.Sprintf("API Traffic %d", id),
+			DisplayName: fmt.Sprintf("Traffic Observation %s", trafficID),
 			ApiVersions: []*encoding.ApiVersion{
 				{
 					Header: encoding.Header{

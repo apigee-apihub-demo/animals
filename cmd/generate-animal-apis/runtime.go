@@ -59,6 +59,8 @@ func generateRuntimeMocks(animal *Animal) error {
 	apiID := strings.ToLower(lowerPlural)
 	fmt.Printf("generating %+v API\n", apiID)
 
+	enrolledApiID := provider + "-" + strings.ToLower(lowerPlural)
+
 	// Create output directory.
 	err := os.MkdirAll(filepath.Join(runtime, apiID), 0755)
 	if err != nil {
@@ -66,27 +68,23 @@ func generateRuntimeMocks(animal *Animal) error {
 	}
 
 	// Generate info.yaml.
+
+	// TODO: Apigee dependencies should link to Apigee management interfaces
 	proxyDependenciesData, err := encoding.NodeForMessage(&apihub.ReferenceList{
 		DisplayName: "Apigee Dependencies",
 		Description: "Links to dependant Apigee resources.",
-		References: []*apihub.ReferenceList_Reference{
-			{
-				Id:          "petstore",
-				DisplayName: "petstore (Apigee)",
-				Category:    "",
-				Uri:         "https://console.cloud.google.com/apigee/proxies/petstore/overview?project=apigee-apihub-demo",
-			},
-		},
+		References:  []*apihub.ReferenceList_Reference{},
 	})
 	if err != nil {
 		return err
 	}
+	proxyApiID := organization + "-" + provider + "-" + apiID + "-proxy"
 	proxy := &encoding.Api{
 		Header: encoding.Header{
 			ApiVersion: "apigeeregistry/v1",
 			Kind:       "API",
 			Metadata: encoding.Metadata{
-				Name: organization + "-" + provider + "-" + apiID + "-proxy",
+				Name: proxyApiID,
 				Labels: map[string]string{
 					"apihub-business-unit": organization,
 					"apihub-kind":          "proxy",
@@ -138,31 +136,34 @@ func generateRuntimeMocks(animal *Animal) error {
 			},
 		},
 	}
-	productProxiesData, err := encoding.NodeForMessage(&apihub.ReferenceList{
+	// Related resources link to enrolled APIs and proxies.
+	// TODO: Evaluate keeping these in separate lists.
+	productRelatedResourcesData, err := encoding.NodeForMessage(&apihub.ReferenceList{
 		DisplayName: "Related Resources",
 		Description: "Links to resources in the registry.",
 		References: []*apihub.ReferenceList_Reference{
 			{
+				Id:          enrolledApiID,
+				DisplayName: enrolledApiID,
+				Category:    "apihub-organization-apis",
+				Resource:    "projects/apigee-apihub-demo/locations/global/apis/" + enrolledApiID,
+			},
+			{
 				Id:          "apigee-apihub-demo-petstore-proxy",
 				DisplayName: "apigee-apihub-demo proxy: petstore",
-				Resource:    "projects/apigee-apihub-demo/locations/global/apis/apigee-apihub-demo-petstore-proxy",
+				Category:    "apihub-organization-apis",
+				Resource:    "projects/apigee-apihub-demo/locations/global/apis/" + proxyApiID,
 			},
 		},
 	})
 	if err != nil {
 		return err
 	}
+	// TODO: Apigee dependencies should link to Apigee management interfaces
 	productDependenciesData, err := encoding.NodeForMessage(&apihub.ReferenceList{
 		DisplayName: "Apigee Dependencies",
 		Description: "Links to dependant Apigee resources.",
-		References: []*apihub.ReferenceList_Reference{
-			{
-				Id:          "petstore",
-				DisplayName: "petstore (Apigee)",
-				Category:    "",
-				Uri:         "https://console.cloud.google.com/apigee/apiproducts/product/petstore/overview?project=apigee-apihub-demo",
-			},
-		},
+		References:  []*apihub.ReferenceList_Reference{},
 	})
 	if err != nil {
 		return err
@@ -196,7 +197,7 @@ func generateRuntimeMocks(animal *Animal) error {
 							},
 						},
 					},
-					Data: *productProxiesData,
+					Data: *productRelatedResourcesData,
 				},
 				{
 					Header: encoding.Header{

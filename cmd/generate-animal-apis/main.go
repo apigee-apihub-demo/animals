@@ -25,7 +25,7 @@ func main() {
 	ctx := context.Background()
 
 	cmd := &cobra.Command{}
-	cmd.AddCommand(enrollmentsCommand())
+	cmd.AddCommand(enrolledCommand())
 	cmd.AddCommand(trafficCommand())
 	cmd.AddCommand(runtimeCommand())
 	if err := cmd.ExecuteContext(ctx); err != nil {

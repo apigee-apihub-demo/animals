@@ -33,10 +33,10 @@ const enrollments = "apis"
 const provider = "fauna"
 const source = "generate-animal-apis"
 
-func enrollmentsCommand() *cobra.Command {
+func enrolledCommand() *cobra.Command {
 	var filename string
 	cmd := &cobra.Command{
-		Use:   "enrollments",
+		Use:   "enrolled",
 		Short: "Generate YAML for enrolled APIs",
 		Args:  cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) error {

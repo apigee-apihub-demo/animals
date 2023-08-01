@@ -1,0 +1,79 @@
+apiVersion: apigeeregistry/v1
+items:
+  - apiVersion: apigeeregistry/v1
+    kind: API
+    metadata:
+      name: apigee-apihub-demo-fauna-flamingos-proxy
+      labels:
+        apihub-business-unit: apigee-apihub-demo
+        apihub-kind: proxy
+        source: generate-animal-apis
+      annotations:
+        apigee-proxy: apigee-apihub-demo/apis/fauna-flamingos
+    data:
+      displayName: 'apigee-apihub-demo proxy: fauna-flamingos'
+      recommendedVersion: v1
+      deployments:
+        - metadata:
+            name: bar-org
+            labels:
+              apihub-gateway: apihub-google-cloud-apigee
+            annotations:
+              apigee-envgroup: organizations/apigee-apihub-demo/envgroups/bar
+              apigee-environment: organizations/apigee-apihub-demo/environments/test-env
+              apigee-proxy-revision: organizations/apigee-apihub-demo/apis/petstore/revisions/1
+              message-count-7-days: "2"
+          data:
+            displayName: test-env (bar.org)
+            endpointURI: bar.org
+      artifacts:
+        - kind: ReferenceList
+          metadata:
+            name: apihub-dependencies
+            labels:
+              source: generate-animal-apis
+          data:
+            displayName: Apigee Dependencies
+            description: Links to dependant Apigee resources.
+            references: []
+  - apiVersion: apigeeregistry/v1
+    kind: API
+    metadata:
+      name: apigee-apihub-demo-fauna-flamingos-product
+      labels:
+        apihub-business-unit: apigee-apihub-demo
+        apihub-kind: product
+        apihub-target-users: public
+      annotations:
+        apigee-product: organizations/apigee-apihub-demo/apiproducts/petstore
+    data:
+      displayName: 'apigee-apihub-demo product: fauna-flamingos'
+      artifacts:
+        - kind: ReferenceList
+          metadata:
+            name: apihub-related
+            labels:
+              source: generate-animal-apis
+          data:
+            displayName: Related Resources
+            description: Links to resources in the registry.
+            references:
+              - id: fauna-flamingos
+                displayName: fauna-flamingos
+                category: apihub-organization-apis
+                resource: projects/apigee-apihub-demo/locations/global/apis/fauna-flamingos
+                uri: ""
+              - id: apigee-apihub-demo-petstore-proxy
+                displayName: 'apigee-apihub-demo proxy: petstore'
+                category: apihub-organization-apis
+                resource: projects/apigee-apihub-demo/locations/global/apis/apigee-apihub-demo-fauna-flamingos-proxy
+                uri: ""
+        - kind: ReferenceList
+          metadata:
+            name: apihub-dependencies
+            labels:
+              source: generate-animal-apis
+          data:
+            displayName: Apigee Dependencies
+            description: Links to dependant Apigee resources.
+            references: []

@@ -1,0 +1,10 @@
+openapi: 3.1.0
+paths:
+  /raccoons:
+    get:
+      operationId: op-000
+    post:
+      operationId: op-001
+  /raccoons/*:
+    get:
+      operationId: op-002

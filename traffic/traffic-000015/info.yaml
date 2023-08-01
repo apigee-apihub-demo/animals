@@ -1,0 +1,38 @@
+apiVersion: apigeeregistry/v1
+kind: API
+metadata:
+  name: traffic-000015
+  labels:
+    apihub-kind: traffic
+data:
+  displayName: Traffic Observation 000015
+  versions:
+    - metadata:
+        name: v1
+      data:
+        displayName: v1
+        primarySpec: openapi
+        specs:
+          - metadata:
+              name: openapi
+            data:
+              filename: openapi.yaml
+              mimeType: application/x.openapi+gzip;version=3.0
+  deployments:
+    - metadata:
+        name: location
+      data:
+        endpointURI: bar.org
+  artifacts:
+    - kind: ReferenceList
+      metadata:
+        name: apihub-related
+      data:
+        displayName: Related Links
+        description: Defines a list of related resources
+        references:
+          - id: fauna-porcupines
+            displayName: Enrolled API
+            category: apihub-organization-apis
+            resource: projects/apigee-apihub-demo/locations/global/apis/fauna-porcupines
+            uri: ""
