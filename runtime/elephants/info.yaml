@@ -3,7 +3,7 @@ items:
   - apiVersion: apigeeregistry/v1
     kind: API
     metadata:
-      name: generate-animal-apis-apigee-apihub-demo-proxy-fauna-elephants
+      name: generate-animal-apis-xyytpwxwfq6bslt3zoqrytogbrqyh4aa
       labels:
         apihub-business-unit: apigee-apihub-demo
         apihub-kind: proxy
@@ -41,7 +41,7 @@ items:
   - apiVersion: apigeeregistry/v1
     kind: API
     metadata:
-      name: generate-animal-apis-apigee-apihub-demo-product-fauna-elephants
+      name: generate-animal-apis-jocxgs2q2bnrzbv4s7ratcj4j2ec5h5u
       labels:
         apihub-business-unit: apigee-apihub-demo
         apihub-kind: product
@@ -69,7 +69,7 @@ items:
               - id: apigee-apihub-demo-petstore-proxy
                 displayName: 'apigee-apihub-demo proxy: petstore'
                 category: apihub-organization-apis
-                resource: projects/apigee-apihub-demo/locations/global/apis/generate-animal-apis-apigee-apihub-demo-proxy-fauna-elephants
+                resource: projects/apigee-apihub-demo/locations/global/apis/generate-animal-apis-xyytpwxwfq6bslt3zoqrytogbrqyh4aa
                 uri: ""
         - kind: ReferenceList
           metadata:

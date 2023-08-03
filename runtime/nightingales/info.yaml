@@ -3,7 +3,7 @@ items:
   - apiVersion: apigeeregistry/v1
     kind: API
     metadata:
-      name: generate-animal-apis-apigee-apihub-demo-proxy-fauna-nightingales
+      name: generate-animal-apis-4t67owiqj76ijdva736s6uodsefieuly
       labels:
         apihub-business-unit: apigee-apihub-demo
         apihub-kind: proxy
@@ -41,7 +41,7 @@ items:
   - apiVersion: apigeeregistry/v1
     kind: API
     metadata:
-      name: generate-animal-apis-apigee-apihub-demo-product-fauna-nightingales
+      name: generate-animal-apis-ug4mkjzuucequkibt7ycu5as2jwmxml7
       labels:
         apihub-business-unit: apigee-apihub-demo
         apihub-kind: product
@@ -69,7 +69,7 @@ items:
               - id: apigee-apihub-demo-petstore-proxy
                 displayName: 'apigee-apihub-demo proxy: petstore'
                 category: apihub-organization-apis
-                resource: projects/apigee-apihub-demo/locations/global/apis/generate-animal-apis-apigee-apihub-demo-proxy-fauna-nightingales
+                resource: projects/apigee-apihub-demo/locations/global/apis/generate-animal-apis-4t67owiqj76ijdva736s6uodsefieuly
                 uri: ""
         - kind: ReferenceList
           metadata:

@@ -3,7 +3,7 @@ items:
   - apiVersion: apigeeregistry/v1
     kind: API
     metadata:
-      name: generate-animal-apis-apigee-apihub-demo-proxy-fauna-kangaroos
+      name: generate-animal-apis-v572ftq25ohhgwibelgriroaslcql7ys
       labels:
         apihub-business-unit: apigee-apihub-demo
         apihub-kind: proxy
@@ -41,7 +41,7 @@ items:
   - apiVersion: apigeeregistry/v1
     kind: API
     metadata:
-      name: generate-animal-apis-apigee-apihub-demo-product-fauna-kangaroos
+      name: generate-animal-apis-lxniwsmfhdfrnopo74ucck3oy4u7cttd
       labels:
         apihub-business-unit: apigee-apihub-demo
         apihub-kind: product
@@ -69,7 +69,7 @@ items:
               - id: apigee-apihub-demo-petstore-proxy
                 displayName: 'apigee-apihub-demo proxy: petstore'
                 category: apihub-organization-apis
-                resource: projects/apigee-apihub-demo/locations/global/apis/generate-animal-apis-apigee-apihub-demo-proxy-fauna-kangaroos
+                resource: projects/apigee-apihub-demo/locations/global/apis/generate-animal-apis-v572ftq25ohhgwibelgriroaslcql7ys
                 uri: ""
         - kind: ReferenceList
           metadata:

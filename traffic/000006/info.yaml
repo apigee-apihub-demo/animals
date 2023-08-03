@@ -1,7 +1,7 @@
 apiVersion: apigeeregistry/v1
 kind: API
 metadata:
-  name: generate-animal-apis-apigee-apihub-demo-traffic-000006
+  name: generate-animal-apis-4xpvle44z7c46ktqo2zidqdfnjr64fe2
   labels:
     apihub-kind: traffic
     apihub-source: generate-animal-apis

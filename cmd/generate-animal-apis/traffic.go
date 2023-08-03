@@ -59,7 +59,7 @@ func generateTraffic(id int, animal *Animal) error {
 
 	enrolledApiID := provider + "-" + strings.ToLower(lowerPlural)
 
-	trafficApiID := source + "-" + organization + "-traffic-" + trafficID
+	trafficApiID := source + "-" + encodeName(organization+"-traffic-"+trafficID)
 	fmt.Printf("generating %+v API\n", trafficApiID)
 
 	// Create output directory.

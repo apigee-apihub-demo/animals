@@ -78,7 +78,7 @@ func generateRuntimeMocks(animal *Animal) error {
 	if err != nil {
 		return err
 	}
-	proxyApiID := source + "-" + organization + "-proxy-" + enrolledApiID
+	proxyApiID := source + "-" + encodeName(organization+"-proxy-"+enrolledApiID)
 	proxy := &encoding.Api{
 		Header: encoding.Header{
 			ApiVersion: "apigeeregistry/v1",
@@ -170,7 +170,7 @@ func generateRuntimeMocks(animal *Animal) error {
 	if err != nil {
 		return err
 	}
-	productApiID := source + "-" + organization + "-product-" + enrolledApiID
+	productApiID := source + "-" + encodeName(organization+"-product-"+enrolledApiID)
 	product := &encoding.Api{
 		Header: encoding.Header{
 			ApiVersion: "apigeeregistry/v1",
