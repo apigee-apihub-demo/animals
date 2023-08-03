@@ -56,13 +56,14 @@ func generateTraffic(id int, animal *Animal) error {
 	lowerPlural := strings.ToLower(upperPlural)
 
 	trafficID := fmt.Sprintf("%06d", id)
-	apiID := fmt.Sprintf("traffic-%s", trafficID)
-	fmt.Printf("generating %+v API\n", apiID)
 
 	enrolledApiID := provider + "-" + strings.ToLower(lowerPlural)
 
+	trafficApiID := source + "-" + organization + "-traffic-" + trafficID
+	fmt.Printf("generating %+v API\n", trafficApiID)
+
 	// Create output directory.
-	err := os.MkdirAll(filepath.Join(traffic, apiID), 0755)
+	err := os.MkdirAll(filepath.Join(traffic, trafficID), 0755)
 	if err != nil {
 		return err
 	}
@@ -88,9 +89,10 @@ func generateTraffic(id int, animal *Animal) error {
 			ApiVersion: "apigeeregistry/v1",
 			Kind:       "API",
 			Metadata: encoding.Metadata{
-				Name: apiID,
+				Name: trafficApiID,
 				Labels: map[string]string{
-					"apihub-kind": "traffic",
+					"apihub-kind":   "traffic",
+					"apihub-source": source,
 				},
 				Annotations: map[string]string{},
 			},
@@ -102,6 +104,9 @@ func generateTraffic(id int, animal *Animal) error {
 					Header: encoding.Header{
 						Metadata: encoding.Metadata{
 							Name: "v1",
+							Labels: map[string]string{
+								"apihub-source": source,
+							},
 						},
 					},
 					Data: encoding.ApiVersionData{
@@ -111,8 +116,10 @@ func generateTraffic(id int, animal *Animal) error {
 							{
 								Header: encoding.Header{
 									Metadata: encoding.Metadata{
-										Name:   "openapi",
-										Labels: map[string]string{},
+										Name: "openapi",
+										Labels: map[string]string{
+											"apihub-source": source,
+										},
 									},
 								},
 								Data: encoding.ApiSpecData{
@@ -128,9 +135,7 @@ func generateTraffic(id int, animal *Animal) error {
 				{
 					Header: encoding.Header{
 						Metadata: encoding.Metadata{
-							Name:        "location",
-							Labels:      map[string]string{},
-							Annotations: map[string]string{},
+							Name: "location",
 						},
 					},
 					Data: encoding.ApiDeploymentData{
@@ -143,8 +148,7 @@ func generateTraffic(id int, animal *Animal) error {
 					Header: encoding.Header{
 						Kind: "ReferenceList",
 						Metadata: encoding.Metadata{
-							Name:   "apihub-related",
-							Labels: map[string]string{},
+							Name: "apihub-related",
 						},
 					},
 					Data: *referenceData,
@@ -156,7 +160,7 @@ func generateTraffic(id int, animal *Animal) error {
 	if err != nil {
 		return err
 	}
-	err = os.WriteFile(filepath.Join(traffic, apiID, "info.yaml"), infoBytes, 0644)
+	err = os.WriteFile(filepath.Join(traffic, trafficID, "info.yaml"), infoBytes, 0644)
 	if err != nil {
 		return err
 	}
@@ -185,7 +189,7 @@ func generateTraffic(id int, animal *Animal) error {
 	if err != nil {
 		return err
 	}
-	return os.WriteFile(filepath.Join(traffic, apiID, "openapi.yaml"), specBytes, 0644)
+	return os.WriteFile(filepath.Join(traffic, trafficID, "openapi.yaml"), specBytes, 0644)
 }
 
 type operationIDFactory struct {

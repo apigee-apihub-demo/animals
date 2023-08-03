@@ -78,7 +78,7 @@ func generateRuntimeMocks(animal *Animal) error {
 	if err != nil {
 		return err
 	}
-	proxyApiID := organization + "-" + provider + "-" + apiID + "-proxy"
+	proxyApiID := source + "-" + organization + "-proxy-" + enrolledApiID
 	proxy := &encoding.Api{
 		Header: encoding.Header{
 			ApiVersion: "apigeeregistry/v1",
@@ -88,10 +88,10 @@ func generateRuntimeMocks(animal *Animal) error {
 				Labels: map[string]string{
 					"apihub-business-unit": organization,
 					"apihub-kind":          "proxy",
-					"source":               source,
+					"apihub-source":        source,
 				},
 				Annotations: map[string]string{
-					"apigee-proxy": organization + "/apis/" + provider + "-" + apiID,
+					"proxy": organization + "/apis/" + provider + "-" + apiID,
 				},
 			},
 		},
@@ -107,10 +107,12 @@ func generateRuntimeMocks(animal *Animal) error {
 								"apihub-gateway": "apihub-google-cloud-apigee",
 							},
 							Annotations: map[string]string{
-								"apigee-envgroup":       "organizations/apigee-apihub-demo/envgroups/bar",
-								"apigee-environment":    "organizations/apigee-apihub-demo/environments/test-env",
-								"apigee-proxy-revision": "organizations/apigee-apihub-demo/apis/petstore/revisions/1",
-								"message-count-7-days":  "2",
+								"organization":         "apigee-apihub-demo",
+								"envgroup":             "demo",
+								"environment":          "test-env",
+								"proxy":                "petstore",
+								"proxy-revision":       "1",
+								"message-count-7-days": "2",
 							},
 						},
 					},
@@ -127,7 +129,7 @@ func generateRuntimeMocks(animal *Animal) error {
 						Metadata: encoding.Metadata{
 							Name: "apihub-dependencies",
 							Labels: map[string]string{
-								"source": source,
+								"apihub-source": source,
 							},
 						},
 					},
@@ -168,19 +170,21 @@ func generateRuntimeMocks(animal *Animal) error {
 	if err != nil {
 		return err
 	}
+	productApiID := source + "-" + organization + "-product-" + enrolledApiID
 	product := &encoding.Api{
 		Header: encoding.Header{
 			ApiVersion: "apigeeregistry/v1",
 			Kind:       "API",
 			Metadata: encoding.Metadata{
-				Name: organization + "-" + provider + "-" + apiID + "-product",
+				Name: productApiID,
 				Labels: map[string]string{
 					"apihub-business-unit": organization,
 					"apihub-kind":          "product",
 					"apihub-target-users":  "public",
 				},
 				Annotations: map[string]string{
-					"apigee-product": "organizations/apigee-apihub-demo/apiproducts/petstore",
+					"organization": "apigee-apihub-demo",
+					"product":      "petstore",
 				},
 			},
 		},
@@ -193,7 +197,7 @@ func generateRuntimeMocks(animal *Animal) error {
 						Metadata: encoding.Metadata{
 							Name: "apihub-related",
 							Labels: map[string]string{
-								"source": source,
+								"apihub-source": source,
 							},
 						},
 					},
@@ -205,7 +209,7 @@ func generateRuntimeMocks(animal *Animal) error {
 						Metadata: encoding.Metadata{
 							Name: "apihub-dependencies",
 							Labels: map[string]string{
-								"source": source,
+								"apihub-source": source,
 							},
 						},
 					},

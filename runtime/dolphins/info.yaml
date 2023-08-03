@@ -3,13 +3,13 @@ items:
   - apiVersion: apigeeregistry/v1
     kind: API
     metadata:
-      name: apigee-apihub-demo-fauna-dolphins-proxy
+      name: generate-animal-apis-apigee-apihub-demo-proxy-fauna-dolphins
       labels:
         apihub-business-unit: apigee-apihub-demo
         apihub-kind: proxy
-        source: generate-animal-apis
+        apihub-source: generate-animal-apis
       annotations:
-        apigee-proxy: apigee-apihub-demo/apis/fauna-dolphins
+        proxy: apigee-apihub-demo/apis/fauna-dolphins
     data:
       displayName: 'apigee-apihub-demo proxy: fauna-dolphins'
       recommendedVersion: v1
@@ -19,10 +19,12 @@ items:
             labels:
               apihub-gateway: apihub-google-cloud-apigee
             annotations:
-              apigee-envgroup: organizations/apigee-apihub-demo/envgroups/bar
-              apigee-environment: organizations/apigee-apihub-demo/environments/test-env
-              apigee-proxy-revision: organizations/apigee-apihub-demo/apis/petstore/revisions/1
+              envgroup: demo
+              environment: test-env
               message-count-7-days: "2"
+              organization: apigee-apihub-demo
+              proxy: petstore
+              proxy-revision: "1"
           data:
             displayName: test-env (bar.org)
             endpointURI: bar.org
@@ -31,7 +33,7 @@ items:
           metadata:
             name: apihub-dependencies
             labels:
-              source: generate-animal-apis
+              apihub-source: generate-animal-apis
           data:
             displayName: Apigee Dependencies
             description: Links to dependant Apigee resources.
@@ -39,13 +41,14 @@ items:
   - apiVersion: apigeeregistry/v1
     kind: API
     metadata:
-      name: apigee-apihub-demo-fauna-dolphins-product
+      name: generate-animal-apis-apigee-apihub-demo-product-fauna-dolphins
       labels:
         apihub-business-unit: apigee-apihub-demo
         apihub-kind: product
         apihub-target-users: public
       annotations:
-        apigee-product: organizations/apigee-apihub-demo/apiproducts/petstore
+        organization: apigee-apihub-demo
+        product: petstore
     data:
       displayName: 'apigee-apihub-demo product: fauna-dolphins'
       artifacts:
@@ -53,7 +56,7 @@ items:
           metadata:
             name: apihub-related
             labels:
-              source: generate-animal-apis
+              apihub-source: generate-animal-apis
           data:
             displayName: Related Resources
             description: Links to resources in the registry.
@@ -66,13 +69,13 @@ items:
               - id: apigee-apihub-demo-petstore-proxy
                 displayName: 'apigee-apihub-demo proxy: petstore'
                 category: apihub-organization-apis
-                resource: projects/apigee-apihub-demo/locations/global/apis/apigee-apihub-demo-fauna-dolphins-proxy
+                resource: projects/apigee-apihub-demo/locations/global/apis/generate-animal-apis-apigee-apihub-demo-proxy-fauna-dolphins
                 uri: ""
         - kind: ReferenceList
           metadata:
             name: apihub-dependencies
             labels:
-              source: generate-animal-apis
+              apihub-source: generate-animal-apis
           data:
             displayName: Apigee Dependencies
             description: Links to dependant Apigee resources.

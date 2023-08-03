@@ -19,7 +19,6 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-	"time"
 
 	"github.com/apigee/registry/pkg/application/apihub"
 	"github.com/apigee/registry/pkg/encoding"
@@ -72,7 +71,6 @@ func generateEnrollment(animal *Animal) error {
 	}
 
 	// Generate info.yaml.
-	updated := time.Now().Format("2006-01-02")
 	referenceData, err := encoding.NodeForMessage(&apihub.ReferenceList{
 		DisplayName: "Related Links",
 		References: []*apihub.ReferenceList_Reference{
@@ -101,18 +99,13 @@ func generateEnrollment(animal *Animal) error {
 					"apihub-style":         "apihub-openapi",
 					"apihub-target-users":  "public",
 					"apihub-kind":          "enrolled",
+					"apihub-source":        source,
 					"apihub-team":          provider + "-" + strings.ToLower(animal.Class),
 					"categories":           strings.ToLower(animal.Class),
-					"provider":             provider,
-					"updated":              updated,
-					"source":               source,
 				},
 				Annotations: map[string]string{
 					"apihub-primary-contact":             lowerPlural + "@apigee-apihub-demo.github.io",
 					"apihub-primary-contact-description": upperSingular + " Support Team",
-					"legs":                               animal.Legs,
-					"weight":                             animal.Weight,
-					"lifespan":                           animal.Lifespan,
 				},
 			},
 		},
@@ -126,8 +119,7 @@ func generateEnrollment(animal *Animal) error {
 						Metadata: encoding.Metadata{
 							Name: "v1",
 							Labels: map[string]string{
-								"updated": updated,
-								"source":  source,
+								"apihub-source": source,
 							},
 						},
 					},
@@ -141,8 +133,7 @@ func generateEnrollment(animal *Animal) error {
 									Metadata: encoding.Metadata{
 										Name: "openapi",
 										Labels: map[string]string{
-											"updated": updated,
-											"source":  source,
+											"apihub-source": source,
 										},
 									},
 								},
@@ -162,8 +153,7 @@ func generateEnrollment(animal *Animal) error {
 						Metadata: encoding.Metadata{
 							Name: "apihub-related",
 							Labels: map[string]string{
-								"updated": updated,
-								"source":  source,
+								"apihub-source": source,
 							},
 						},
 					},
