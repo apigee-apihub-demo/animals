@@ -1,0 +1,10 @@
+openapi: 3.1.0
+paths:
+  /giraffes:
+    get:
+      operationId: op-000
+    post:
+      operationId: op-001
+  /giraffes/*:
+    get:
+      operationId: op-002

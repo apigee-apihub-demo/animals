@@ -16,7 +16,7 @@ package main
 
 type OpenAPI struct {
 	OpenAPI    string                  `yaml:"openapi"`
-	Info       *OpenAPIInfo            `yaml:"info"`
+	Info       *OpenAPIInfo            `yaml:"info,omitempty"`
 	Servers    []*OpenAPIServer        `yaml:"servers,omitempty"`
 	Paths      map[string]*OpenAPIPath `yaml:"paths"`
 	Components *OpenAPIComponents      `yaml:"components,omitempty"`
@@ -79,4 +79,17 @@ type OpenAPISchema struct {
 	Properties map[string]*OpenAPISchema `yaml:"properties,omitempty"`
 	MaxItems   int                       `yaml:"maxItems,omitempty"`
 	Items      *OpenAPISchema            `yaml:"items,omitempty"`
+}
+
+func errorResponse() *OpenAPIResponse {
+	return &OpenAPIResponse{
+		Description: "unexpected error",
+		Content: map[string]*OpenAPIContent{
+			"application/json": {
+				Schema: &OpenAPISchema{
+					Ref: "#/components/schemas/Error",
+				},
+			},
+		},
+	}
 }

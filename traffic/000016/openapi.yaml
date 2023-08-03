@@ -1,0 +1,10 @@
+openapi: 3.1.0
+paths:
+  /quokkas:
+    get:
+      operationId: op-000
+    post:
+      operationId: op-001
+  /quokkas/*:
+    get:
+      operationId: op-002

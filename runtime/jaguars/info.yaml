@@ -1,0 +1,82 @@
+apiVersion: apigeeregistry/v1
+items:
+  - apiVersion: apigeeregistry/v1
+    kind: API
+    metadata:
+      name: generate-animal-apis-apigee-apihub-demo-proxy-fauna-jaguars
+      labels:
+        apihub-business-unit: apigee-apihub-demo
+        apihub-kind: proxy
+        apihub-source: generate-animal-apis
+      annotations:
+        proxy: apigee-apihub-demo/apis/fauna-jaguars
+    data:
+      displayName: 'apigee-apihub-demo proxy: fauna-jaguars'
+      recommendedVersion: v1
+      deployments:
+        - metadata:
+            name: bar-org
+            labels:
+              apihub-gateway: apihub-google-cloud-apigee
+            annotations:
+              envgroup: demo
+              environment: test-env
+              message-count-7-days: "2"
+              organization: apigee-apihub-demo
+              proxy: petstore
+              proxy-revision: "1"
+          data:
+            displayName: test-env (bar.org)
+            endpointURI: bar.org
+      artifacts:
+        - kind: ReferenceList
+          metadata:
+            name: apihub-dependencies
+            labels:
+              apihub-source: generate-animal-apis
+          data:
+            displayName: Apigee Dependencies
+            description: Links to dependant Apigee resources.
+            references: []
+  - apiVersion: apigeeregistry/v1
+    kind: API
+    metadata:
+      name: generate-animal-apis-apigee-apihub-demo-product-fauna-jaguars
+      labels:
+        apihub-business-unit: apigee-apihub-demo
+        apihub-kind: product
+        apihub-target-users: public
+      annotations:
+        organization: apigee-apihub-demo
+        product: petstore
+    data:
+      displayName: 'apigee-apihub-demo product: fauna-jaguars'
+      artifacts:
+        - kind: ReferenceList
+          metadata:
+            name: apihub-related
+            labels:
+              apihub-source: generate-animal-apis
+          data:
+            displayName: Related Resources
+            description: Links to resources in the registry.
+            references:
+              - id: fauna-jaguars
+                displayName: fauna-jaguars
+                category: apihub-organization-apis
+                resource: projects/apigee-apihub-demo/locations/global/apis/fauna-jaguars
+                uri: ""
+              - id: apigee-apihub-demo-petstore-proxy
+                displayName: 'apigee-apihub-demo proxy: petstore'
+                category: apihub-organization-apis
+                resource: projects/apigee-apihub-demo/locations/global/apis/generate-animal-apis-apigee-apihub-demo-proxy-fauna-jaguars
+                uri: ""
+        - kind: ReferenceList
+          metadata:
+            name: apihub-dependencies
+            labels:
+              apihub-source: generate-animal-apis
+          data:
+            displayName: Apigee Dependencies
+            description: Links to dependant Apigee resources.
+            references: []

@@ -6,19 +6,14 @@ metadata:
     apihub-business-unit: fauna
     apihub-kind: enrolled
     apihub-lifecycle: production
+    apihub-source: generate-animal-apis
     apihub-style: apihub-openapi
     apihub-target-users: public
     apihub-team: fauna-mammals
     categories: mammals
-    provider: fauna
-    source: generate-animal-apis
-    updated: "2023-07-28"
   annotations:
     apihub-primary-contact: lemurs@apigee-apihub-demo.github.io
     apihub-primary-contact-description: Lemur Support Team
-    legs: "4"
-    lifespan: 15-20 years
-    weight: 1-2 pounds
 data:
   displayName: Fauna Lemurs API
   description: The Fauna Lemurs API allows users to manage a collection of lemurs.
@@ -27,8 +22,7 @@ data:
     - metadata:
         name: v1
         labels:
-          source: generate-animal-apis
-          updated: "2023-07-28"
+          apihub-source: generate-animal-apis
       data:
         displayName: v1
         state: production
@@ -37,8 +31,7 @@ data:
           - metadata:
               name: openapi
               labels:
-                source: generate-animal-apis
-                updated: "2023-07-28"
+                apihub-source: generate-animal-apis
             data:
               filename: openapi.yaml
               mimeType: application/x.openapi+gzip;version=3.0
@@ -47,8 +40,7 @@ data:
       metadata:
         name: apihub-related
         labels:
-          source: generate-animal-apis
-          updated: "2023-07-28"
+          apihub-source: generate-animal-apis
       data:
         displayName: Related Links
         description: ""
