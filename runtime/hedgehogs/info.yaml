@@ -3,7 +3,7 @@ items:
   - apiVersion: apigeeregistry/v1
     kind: API
     metadata:
-      name: generate-animal-apis-apigee-apihub-demo-proxy-fauna-hedgehogs
+      name: generate-animal-apis-eah6eqfecoz53rh6slxsgmzpqqhmdpnd
       labels:
         apihub-business-unit: apigee-apihub-demo
         apihub-kind: proxy
@@ -41,7 +41,7 @@ items:
   - apiVersion: apigeeregistry/v1
     kind: API
     metadata:
-      name: generate-animal-apis-apigee-apihub-demo-product-fauna-hedgehogs
+      name: generate-animal-apis-verbhsr3d2llb5npaeccrgavs6n3rjxw
       labels:
         apihub-business-unit: apigee-apihub-demo
         apihub-kind: product
@@ -69,7 +69,7 @@ items:
               - id: apigee-apihub-demo-petstore-proxy
                 displayName: 'apigee-apihub-demo proxy: petstore'
                 category: apihub-organization-apis
-                resource: projects/apigee-apihub-demo/locations/global/apis/generate-animal-apis-apigee-apihub-demo-proxy-fauna-hedgehogs
+                resource: projects/apigee-apihub-demo/locations/global/apis/generate-animal-apis-eah6eqfecoz53rh6slxsgmzpqqhmdpnd
                 uri: ""
         - kind: ReferenceList
           metadata:
