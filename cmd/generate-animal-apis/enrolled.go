@@ -120,6 +120,7 @@ func generateEnrollment(animal *Animal) error {
 							Name: "v1",
 							Labels: map[string]string{
 								"apihub-source": source,
+								"apihub-kind":   "enrolled",
 							},
 						},
 					},
@@ -133,6 +134,7 @@ func generateEnrollment(animal *Animal) error {
 									Metadata: encoding.Metadata{
 										Name: "openapi",
 										Labels: map[string]string{
+											"apihub-kind":   "enrolled",
 											"apihub-source": source,
 										},
 									},
