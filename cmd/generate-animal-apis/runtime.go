@@ -105,6 +105,7 @@ func generateRuntimeMocks(animal *Animal) error {
 							Name: "bar-org",
 							Labels: map[string]string{
 								"apihub-gateway": "apihub-google-cloud-apigee",
+								"apihub-kind":    "proxy",
 							},
 							Annotations: map[string]string{
 								"organization":         "apigee-apihub-demo",

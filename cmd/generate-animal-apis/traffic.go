@@ -106,6 +106,7 @@ func generateTraffic(id int, animal *Animal) error {
 							Name: "v1",
 							Labels: map[string]string{
 								"apihub-source": source,
+								"apihub-kind":   "traffic",
 							},
 						},
 					},
@@ -119,6 +120,7 @@ func generateTraffic(id int, animal *Animal) error {
 										Name: "openapi",
 										Labels: map[string]string{
 											"apihub-source": source,
+											"apihub-kind":   "traffic",
 										},
 									},
 								},
