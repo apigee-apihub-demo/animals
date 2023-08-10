@@ -64,12 +64,12 @@ items:
             references:
               - id: fauna-porcupines
                 displayName: fauna-porcupines
-                category: apihub-organization-apis
+                category: enrollment
                 resource: projects/apigee-apihub-demo/locations/global/apis/fauna-porcupines
                 uri: ""
               - id: apigee-apihub-demo-petstore-proxy
                 displayName: 'apigee-apihub-demo proxy: petstore'
-                category: apihub-organization-apis
+                category: proxy
                 resource: projects/apigee-apihub-demo/locations/global/apis/generate-animal-apis-4tmq457kfloyaeb65ka4rzzkrpmrokxa
                 uri: ""
         - kind: ReferenceList

@@ -64,12 +64,12 @@ items:
             references:
               - id: fauna-giraffes
                 displayName: fauna-giraffes
-                category: apihub-organization-apis
+                category: enrollment
                 resource: projects/apigee-apihub-demo/locations/global/apis/fauna-giraffes
                 uri: ""
               - id: apigee-apihub-demo-petstore-proxy
                 displayName: 'apigee-apihub-demo proxy: petstore'
-                category: apihub-organization-apis
+                category: proxy
                 resource: projects/apigee-apihub-demo/locations/global/apis/generate-animal-apis-ksonaqi3oincuf2mnsis7qbagvsso42m
                 uri: ""
         - kind: ReferenceList

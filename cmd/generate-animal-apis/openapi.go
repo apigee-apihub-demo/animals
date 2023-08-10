@@ -23,8 +23,9 @@ type OpenAPI struct {
 }
 
 type OpenAPIInfo struct {
-	Version string `yaml:"version,omitempty"`
-	Title   string `yaml:"title,omitempty"`
+	Version     string `yaml:"version,omitempty"`
+	Title       string `yaml:"title,omitempty"`
+	Description string `yaml:"description,omitempty"`
 }
 
 type OpenAPIServer struct {

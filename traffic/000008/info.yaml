@@ -40,6 +40,6 @@ data:
         references:
           - id: fauna-iguanas
             displayName: Enrolled API
-            category: apihub-organization-apis
+            category: enrollment
             resource: projects/apigee-apihub-demo/locations/global/apis/fauna-iguanas
             uri: ""

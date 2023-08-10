@@ -64,12 +64,12 @@ items:
             references:
               - id: fauna-crocodiles
                 displayName: fauna-crocodiles
-                category: apihub-organization-apis
+                category: enrollment
                 resource: projects/apigee-apihub-demo/locations/global/apis/fauna-crocodiles
                 uri: ""
               - id: apigee-apihub-demo-petstore-proxy
                 displayName: 'apigee-apihub-demo proxy: petstore'
-                category: apihub-organization-apis
+                category: proxy
                 resource: projects/apigee-apihub-demo/locations/global/apis/generate-animal-apis-xqxklnlxqea7vxvt7tahs6wgsoouw4lo
                 uri: ""
         - kind: ReferenceList

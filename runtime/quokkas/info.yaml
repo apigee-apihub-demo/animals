@@ -64,12 +64,12 @@ items:
             references:
               - id: fauna-quokkas
                 displayName: fauna-quokkas
-                category: apihub-organization-apis
+                category: enrollment
                 resource: projects/apigee-apihub-demo/locations/global/apis/fauna-quokkas
                 uri: ""
               - id: apigee-apihub-demo-petstore-proxy
                 displayName: 'apigee-apihub-demo proxy: petstore'
-                category: apihub-organization-apis
+                category: proxy
                 resource: projects/apigee-apihub-demo/locations/global/apis/generate-animal-apis-h76ptgcunz5hj6kmcp6obkqtnjfeoo6o
                 uri: ""
         - kind: ReferenceList

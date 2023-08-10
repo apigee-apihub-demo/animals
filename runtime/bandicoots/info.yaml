@@ -64,12 +64,12 @@ items:
             references:
               - id: fauna-bandicoots
                 displayName: fauna-bandicoots
-                category: apihub-organization-apis
+                category: enrollment
                 resource: projects/apigee-apihub-demo/locations/global/apis/fauna-bandicoots
                 uri: ""
               - id: apigee-apihub-demo-petstore-proxy
                 displayName: 'apigee-apihub-demo proxy: petstore'
-                category: apihub-organization-apis
+                category: proxy
                 resource: projects/apigee-apihub-demo/locations/global/apis/generate-animal-apis-4vajvc52av2p4te5llvmbqjjhvgewdw6
                 uri: ""
         - kind: ReferenceList

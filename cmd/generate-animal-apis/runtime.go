@@ -148,13 +148,13 @@ func generateRuntimeMocks(animal *Animal) error {
 			{
 				Id:          enrolledApiID,
 				DisplayName: enrolledApiID,
-				Category:    "apihub-organization-apis",
+				Category:    "enrollment",
 				Resource:    "projects/apigee-apihub-demo/locations/global/apis/" + enrolledApiID,
 			},
 			{
 				Id:          "apigee-apihub-demo-petstore-proxy",
 				DisplayName: "apigee-apihub-demo proxy: petstore",
-				Category:    "apihub-organization-apis",
+				Category:    "proxy",
 				Resource:    "projects/apigee-apihub-demo/locations/global/apis/" + proxyApiID,
 			},
 		},

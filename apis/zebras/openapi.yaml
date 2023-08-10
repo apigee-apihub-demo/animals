@@ -2,6 +2,7 @@ openapi: 3.0.0
 info:
   version: 1.0.0
   title: Fauna Zebras API
+  description: Manage a collection of zebras.
 servers:
   - url: https://apigee-apihub-demo.github.io
 paths:

@@ -177,8 +177,9 @@ func generateEnrollment(animal *Animal) error {
 	openapi := &OpenAPI{
 		OpenAPI: "3.0.0",
 		Info: &OpenAPIInfo{
-			Version: "1.0.0",
-			Title:   displayName,
+			Version:     "1.0.0",
+			Title:       displayName,
+			Description: fmt.Sprintf("Manage a collection of %s.", lowerPlural),
 		},
 		Servers: []*OpenAPIServer{
 			{

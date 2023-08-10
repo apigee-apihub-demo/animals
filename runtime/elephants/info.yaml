@@ -64,12 +64,12 @@ items:
             references:
               - id: fauna-elephants
                 displayName: fauna-elephants
-                category: apihub-organization-apis
+                category: enrollment
                 resource: projects/apigee-apihub-demo/locations/global/apis/fauna-elephants
                 uri: ""
               - id: apigee-apihub-demo-petstore-proxy
                 displayName: 'apigee-apihub-demo proxy: petstore'
-                category: apihub-organization-apis
+                category: proxy
                 resource: projects/apigee-apihub-demo/locations/global/apis/generate-animal-apis-xyytpwxwfq6bslt3zoqrytogbrqyh4aa
                 uri: ""
         - kind: ReferenceList
