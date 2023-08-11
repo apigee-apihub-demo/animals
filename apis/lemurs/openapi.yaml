@@ -3,12 +3,20 @@ info:
   version: 1.0.0
   title: Fauna Lemurs API
   description: Manage a collection of lemurs.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: Lemur Support Team
+    email: lemurs@apigee-apihub-demo.github.io
+    url: https://github.com/apigee-apihub-demo/animals
 servers:
   - url: https://apigee-apihub-demo.github.io
 paths:
   /lemurs:
     get:
       summary: List all lemurs
+      description: List all lemurs
       operationId: listLemurs
       tags:
         - lemurs
@@ -39,6 +47,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       summary: Create lemur
+      description: Create lemur
       operationId: createLemur
       tags:
         - lemurs
@@ -54,6 +63,7 @@ paths:
   /lemurs/{lemurId}:
     get:
       summary: Info for a specific lemur
+      description: Info for a specific lemur
       operationId: getLemur
       tags:
         - lemurs
@@ -108,3 +118,6 @@ components:
       maxItems: 100
       items:
         $ref: '#/components/schemas/Lemur'
+tags:
+  - name: lemurs
+    description: This API is about lemurs.

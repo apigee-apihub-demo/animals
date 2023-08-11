@@ -3,12 +3,20 @@ info:
   version: 1.0.0
   title: Fauna Tortoises API
   description: Manage a collection of tortoises.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: Tortoise Support Team
+    email: tortoises@apigee-apihub-demo.github.io
+    url: https://github.com/apigee-apihub-demo/animals
 servers:
   - url: https://apigee-apihub-demo.github.io
 paths:
   /tortoises:
     get:
       summary: List all tortoises
+      description: List all tortoises
       operationId: listTortoises
       tags:
         - tortoises
@@ -39,6 +47,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       summary: Create tortoise
+      description: Create tortoise
       operationId: createTortoise
       tags:
         - tortoises
@@ -54,6 +63,7 @@ paths:
   /tortoises/{tortoiseId}:
     get:
       summary: Info for a specific tortoise
+      description: Info for a specific tortoise
       operationId: getTortoise
       tags:
         - tortoises
@@ -108,3 +118,6 @@ components:
       maxItems: 100
       items:
         $ref: '#/components/schemas/Tortoise'
+tags:
+  - name: tortoises
+    description: This API is about tortoises.

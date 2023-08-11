@@ -3,12 +3,20 @@ info:
   version: 1.0.0
   title: Fauna Raccoons API
   description: Manage a collection of raccoons.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: Raccoon Support Team
+    email: raccoons@apigee-apihub-demo.github.io
+    url: https://github.com/apigee-apihub-demo/animals
 servers:
   - url: https://apigee-apihub-demo.github.io
 paths:
   /raccoons:
     get:
       summary: List all raccoons
+      description: List all raccoons
       operationId: listRaccoons
       tags:
         - raccoons
@@ -39,6 +47,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       summary: Create raccoon
+      description: Create raccoon
       operationId: createRaccoon
       tags:
         - raccoons
@@ -54,6 +63,7 @@ paths:
   /raccoons/{raccoonId}:
     get:
       summary: Info for a specific raccoon
+      description: Info for a specific raccoon
       operationId: getRaccoon
       tags:
         - raccoons
@@ -108,3 +118,6 @@ components:
       maxItems: 100
       items:
         $ref: '#/components/schemas/Raccoon'
+tags:
+  - name: raccoons
+    description: This API is about raccoons.

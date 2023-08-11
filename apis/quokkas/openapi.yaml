@@ -3,12 +3,20 @@ info:
   version: 1.0.0
   title: Fauna Quokkas API
   description: Manage a collection of quokkas.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: Quokka Support Team
+    email: quokkas@apigee-apihub-demo.github.io
+    url: https://github.com/apigee-apihub-demo/animals
 servers:
   - url: https://apigee-apihub-demo.github.io
 paths:
   /quokkas:
     get:
       summary: List all quokkas
+      description: List all quokkas
       operationId: listQuokkas
       tags:
         - quokkas
@@ -39,6 +47,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       summary: Create quokka
+      description: Create quokka
       operationId: createQuokka
       tags:
         - quokkas
@@ -54,6 +63,7 @@ paths:
   /quokkas/{quokkaId}:
     get:
       summary: Info for a specific quokka
+      description: Info for a specific quokka
       operationId: getQuokka
       tags:
         - quokkas
@@ -108,3 +118,6 @@ components:
       maxItems: 100
       items:
         $ref: '#/components/schemas/Quokka'
+tags:
+  - name: quokkas
+    description: This API is about quokkas.

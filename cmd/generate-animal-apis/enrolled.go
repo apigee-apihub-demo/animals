@@ -231,6 +231,21 @@ func generateEnrollment(animal *Animal) error {
 			Version:     "1.0.0",
 			Title:       displayName,
 			Description: fmt.Sprintf("Manage a collection of %s.", lowerPlural),
+			License: &OpenAPIInfoLicense{
+				Name: "Apache 2.0",
+				Url:  "http://www.apache.org/licenses/LICENSE-2.0.html",
+			},
+			Contact: &OpenAPIInfoContact{
+				Name:  upperSingular + " Support Team",
+				Email: lowerPlural + "@apigee-apihub-demo.github.io",
+				Url:   "https://github.com/apigee-apihub-demo/animals",
+			},
+		},
+		Tags: []*OpenAPITag{
+			{
+				Name:        lowerPlural,
+				Description: fmt.Sprintf("This API is about %s.", lowerPlural),
+			},
 		},
 		Servers: []*OpenAPIServer{
 			{
@@ -241,6 +256,7 @@ func generateEnrollment(animal *Animal) error {
 			"/" + lowerPlural: {
 				Get: &OpenAPIOperation{
 					Summary:     "List all " + lowerPlural,
+					Description: "List all " + lowerPlural,
 					OperationID: "list" + upperPlural,
 					Tags:        []string{lowerPlural},
 					Parameters: []*OpenAPIParameter{
@@ -279,6 +295,7 @@ func generateEnrollment(animal *Animal) error {
 				},
 				Post: &OpenAPIOperation{
 					Summary:     "Create " + lowerSingular,
+					Description: "Create " + lowerSingular,
 					OperationID: "create" + upperSingular,
 					Tags:        []string{lowerPlural},
 					Responses: map[string]*OpenAPIResponse{
@@ -292,6 +309,7 @@ func generateEnrollment(animal *Animal) error {
 			"/" + lowerPlural + "/{" + lowerSingular + "Id}": {
 				Get: &OpenAPIOperation{
 					Summary:     "Info for a specific " + lowerSingular,
+					Description: "Info for a specific " + lowerSingular,
 					OperationID: "get" + upperSingular,
 					Tags:        []string{lowerPlural},
 					Parameters: []*OpenAPIParameter{

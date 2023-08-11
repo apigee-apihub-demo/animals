@@ -3,12 +3,20 @@ info:
   version: 1.0.0
   title: Fauna Jaguars API
   description: Manage a collection of jaguars.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: Jaguar Support Team
+    email: jaguars@apigee-apihub-demo.github.io
+    url: https://github.com/apigee-apihub-demo/animals
 servers:
   - url: https://apigee-apihub-demo.github.io
 paths:
   /jaguars:
     get:
       summary: List all jaguars
+      description: List all jaguars
       operationId: listJaguars
       tags:
         - jaguars
@@ -39,6 +47,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       summary: Create jaguar
+      description: Create jaguar
       operationId: createJaguar
       tags:
         - jaguars
@@ -54,6 +63,7 @@ paths:
   /jaguars/{jaguarId}:
     get:
       summary: Info for a specific jaguar
+      description: Info for a specific jaguar
       operationId: getJaguar
       tags:
         - jaguars
@@ -108,3 +118,6 @@ components:
       maxItems: 100
       items:
         $ref: '#/components/schemas/Jaguar'
+tags:
+  - name: jaguars
+    description: This API is about jaguars.

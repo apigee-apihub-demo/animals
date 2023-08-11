@@ -3,12 +3,20 @@ info:
   version: 1.0.0
   title: Fauna Xeruses API
   description: Manage a collection of xeruses.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: Xerus Support Team
+    email: xeruses@apigee-apihub-demo.github.io
+    url: https://github.com/apigee-apihub-demo/animals
 servers:
   - url: https://apigee-apihub-demo.github.io
 paths:
   /xeruses:
     get:
       summary: List all xeruses
+      description: List all xeruses
       operationId: listXeruses
       tags:
         - xeruses
@@ -39,6 +47,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       summary: Create xerus
+      description: Create xerus
       operationId: createXerus
       tags:
         - xeruses
@@ -54,6 +63,7 @@ paths:
   /xeruses/{xerusId}:
     get:
       summary: Info for a specific xerus
+      description: Info for a specific xerus
       operationId: getXerus
       tags:
         - xeruses
@@ -108,3 +118,6 @@ components:
       maxItems: 100
       items:
         $ref: '#/components/schemas/Xerus'
+tags:
+  - name: xeruses
+    description: This API is about xeruses.

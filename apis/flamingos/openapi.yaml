@@ -3,12 +3,20 @@ info:
   version: 1.0.0
   title: Fauna Flamingos API
   description: Manage a collection of flamingos.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: Flamingo Support Team
+    email: flamingos@apigee-apihub-demo.github.io
+    url: https://github.com/apigee-apihub-demo/animals
 servers:
   - url: https://apigee-apihub-demo.github.io
 paths:
   /flamingos:
     get:
       summary: List all flamingos
+      description: List all flamingos
       operationId: listFlamingos
       tags:
         - flamingos
@@ -39,6 +47,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       summary: Create flamingo
+      description: Create flamingo
       operationId: createFlamingo
       tags:
         - flamingos
@@ -54,6 +63,7 @@ paths:
   /flamingos/{flamingoId}:
     get:
       summary: Info for a specific flamingo
+      description: Info for a specific flamingo
       operationId: getFlamingo
       tags:
         - flamingos
@@ -108,3 +118,6 @@ components:
       maxItems: 100
       items:
         $ref: '#/components/schemas/Flamingo'
+tags:
+  - name: flamingos
+    description: This API is about flamingos.

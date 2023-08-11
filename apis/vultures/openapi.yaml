@@ -3,12 +3,20 @@ info:
   version: 1.0.0
   title: Fauna Vultures API
   description: Manage a collection of vultures.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: Vulture Support Team
+    email: vultures@apigee-apihub-demo.github.io
+    url: https://github.com/apigee-apihub-demo/animals
 servers:
   - url: https://apigee-apihub-demo.github.io
 paths:
   /vultures:
     get:
       summary: List all vultures
+      description: List all vultures
       operationId: listVultures
       tags:
         - vultures
@@ -39,6 +47,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       summary: Create vulture
+      description: Create vulture
       operationId: createVulture
       tags:
         - vultures
@@ -54,6 +63,7 @@ paths:
   /vultures/{vultureId}:
     get:
       summary: Info for a specific vulture
+      description: Info for a specific vulture
       operationId: getVulture
       tags:
         - vultures
@@ -108,3 +118,6 @@ components:
       maxItems: 100
       items:
         $ref: '#/components/schemas/Vulture'
+tags:
+  - name: vultures
+    description: This API is about vultures.

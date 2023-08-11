@@ -3,12 +3,20 @@ info:
   version: 1.0.0
   title: Fauna Zebras API
   description: Manage a collection of zebras.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: Zebra Support Team
+    email: zebras@apigee-apihub-demo.github.io
+    url: https://github.com/apigee-apihub-demo/animals
 servers:
   - url: https://apigee-apihub-demo.github.io
 paths:
   /zebras:
     get:
       summary: List all zebras
+      description: List all zebras
       operationId: listZebras
       tags:
         - zebras
@@ -39,6 +47,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       summary: Create zebra
+      description: Create zebra
       operationId: createZebra
       tags:
         - zebras
@@ -54,6 +63,7 @@ paths:
   /zebras/{zebraId}:
     get:
       summary: Info for a specific zebra
+      description: Info for a specific zebra
       operationId: getZebra
       tags:
         - zebras
@@ -108,3 +118,6 @@ components:
       maxItems: 100
       items:
         $ref: '#/components/schemas/Zebra'
+tags:
+  - name: zebras
+    description: This API is about zebras.
