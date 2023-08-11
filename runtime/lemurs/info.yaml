@@ -64,12 +64,12 @@ items:
             references:
               - id: fauna-lemurs
                 displayName: fauna-lemurs
-                category: apihub-organization-apis
+                category: enrollment
                 resource: projects/apigee-apihub-demo/locations/global/apis/fauna-lemurs
                 uri: ""
               - id: apigee-apihub-demo-petstore-proxy
                 displayName: 'apigee-apihub-demo proxy: petstore'
-                category: apihub-organization-apis
+                category: proxy
                 resource: projects/apigee-apihub-demo/locations/global/apis/generate-animal-apis-67b4fq7hbanxrevgdtafmbjsc3ixi46p
                 uri: ""
         - kind: ReferenceList

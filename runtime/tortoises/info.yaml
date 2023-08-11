@@ -64,12 +64,12 @@ items:
             references:
               - id: fauna-tortoises
                 displayName: fauna-tortoises
-                category: apihub-organization-apis
+                category: enrollment
                 resource: projects/apigee-apihub-demo/locations/global/apis/fauna-tortoises
                 uri: ""
               - id: apigee-apihub-demo-petstore-proxy
                 displayName: 'apigee-apihub-demo proxy: petstore'
-                category: apihub-organization-apis
+                category: proxy
                 resource: projects/apigee-apihub-demo/locations/global/apis/generate-animal-apis-vwmvyhthleh4dz2wak4yfo3754o22u7g
                 uri: ""
         - kind: ReferenceList

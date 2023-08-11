@@ -64,12 +64,12 @@ items:
             references:
               - id: fauna-yaks
                 displayName: fauna-yaks
-                category: apihub-organization-apis
+                category: enrollment
                 resource: projects/apigee-apihub-demo/locations/global/apis/fauna-yaks
                 uri: ""
               - id: apigee-apihub-demo-petstore-proxy
                 displayName: 'apigee-apihub-demo proxy: petstore'
-                category: apihub-organization-apis
+                category: proxy
                 resource: projects/apigee-apihub-demo/locations/global/apis/generate-animal-apis-uaw2dsgdsmajo42kl6b3c2oncdxqydd4
                 uri: ""
         - kind: ReferenceList

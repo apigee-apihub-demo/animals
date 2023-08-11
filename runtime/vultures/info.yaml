@@ -64,12 +64,12 @@ items:
             references:
               - id: fauna-vultures
                 displayName: fauna-vultures
-                category: apihub-organization-apis
+                category: enrollment
                 resource: projects/apigee-apihub-demo/locations/global/apis/fauna-vultures
                 uri: ""
               - id: apigee-apihub-demo-petstore-proxy
                 displayName: 'apigee-apihub-demo proxy: petstore'
-                category: apihub-organization-apis
+                category: proxy
                 resource: projects/apigee-apihub-demo/locations/global/apis/generate-animal-apis-nquasooumwze5rokykwvn5ez4pxthrqr
                 uri: ""
         - kind: ReferenceList

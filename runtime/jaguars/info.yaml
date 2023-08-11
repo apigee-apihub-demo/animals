@@ -64,12 +64,12 @@ items:
             references:
               - id: fauna-jaguars
                 displayName: fauna-jaguars
-                category: apihub-organization-apis
+                category: enrollment
                 resource: projects/apigee-apihub-demo/locations/global/apis/fauna-jaguars
                 uri: ""
               - id: apigee-apihub-demo-petstore-proxy
                 displayName: 'apigee-apihub-demo proxy: petstore'
-                category: apihub-organization-apis
+                category: proxy
                 resource: projects/apigee-apihub-demo/locations/global/apis/generate-animal-apis-kfaghart3xehanaf57kgw2dm3k4fh7j7
                 uri: ""
         - kind: ReferenceList

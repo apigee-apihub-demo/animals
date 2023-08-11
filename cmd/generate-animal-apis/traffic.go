@@ -76,7 +76,7 @@ func generateTraffic(id int, animal *Animal) error {
 			{
 				Id:          enrolledApiID,
 				DisplayName: "Enrolled API",
-				Category:    "apihub-organization-apis",
+				Category:    "enrollment",
 				Resource:    "projects/apigee-apihub-demo/locations/global/apis/" + enrolledApiID,
 			},
 		},

@@ -2,6 +2,7 @@ openapi: 3.0.0
 info:
   version: 1.0.0
   title: Fauna Aardvarks API
+  description: Manage a collection of aardvarks.
 servers:
   - url: https://apigee-apihub-demo.github.io
 paths:

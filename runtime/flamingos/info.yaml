@@ -64,12 +64,12 @@ items:
             references:
               - id: fauna-flamingos
                 displayName: fauna-flamingos
-                category: apihub-organization-apis
+                category: enrollment
                 resource: projects/apigee-apihub-demo/locations/global/apis/fauna-flamingos
                 uri: ""
               - id: apigee-apihub-demo-petstore-proxy
                 displayName: 'apigee-apihub-demo proxy: petstore'
-                category: apihub-organization-apis
+                category: proxy
                 resource: projects/apigee-apihub-demo/locations/global/apis/generate-animal-apis-tmzxc4eqmhhfs7bdx7kcwxnr65bbh2wj
                 uri: ""
         - kind: ReferenceList

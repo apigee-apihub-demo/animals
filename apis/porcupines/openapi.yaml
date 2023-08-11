@@ -2,6 +2,7 @@ openapi: 3.0.0
 info:
   version: 1.0.0
   title: Fauna Porcupines API
+  description: Manage a collection of porcupines.
 servers:
   - url: https://apigee-apihub-demo.github.io
 paths:

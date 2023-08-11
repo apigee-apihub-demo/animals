@@ -64,12 +64,12 @@ items:
             references:
               - id: fauna-aardvarks
                 displayName: fauna-aardvarks
-                category: apihub-organization-apis
+                category: enrollment
                 resource: projects/apigee-apihub-demo/locations/global/apis/fauna-aardvarks
                 uri: ""
               - id: apigee-apihub-demo-petstore-proxy
                 displayName: 'apigee-apihub-demo proxy: petstore'
-                category: apihub-organization-apis
+                category: proxy
                 resource: projects/apigee-apihub-demo/locations/global/apis/generate-animal-apis-ytikblczmnmc5wfn7wx2a62v2k677cqr
                 uri: ""
         - kind: ReferenceList

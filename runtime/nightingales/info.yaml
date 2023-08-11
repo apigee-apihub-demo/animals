@@ -64,12 +64,12 @@ items:
             references:
               - id: fauna-nightingales
                 displayName: fauna-nightingales
-                category: apihub-organization-apis
+                category: enrollment
                 resource: projects/apigee-apihub-demo/locations/global/apis/fauna-nightingales
                 uri: ""
               - id: apigee-apihub-demo-petstore-proxy
                 displayName: 'apigee-apihub-demo proxy: petstore'
-                category: apihub-organization-apis
+                category: proxy
                 resource: projects/apigee-apihub-demo/locations/global/apis/generate-animal-apis-4t67owiqj76ijdva736s6uodsefieuly
                 uri: ""
         - kind: ReferenceList
