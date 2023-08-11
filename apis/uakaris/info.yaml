@@ -18,6 +18,7 @@ data:
   displayName: Fauna Uakaris API
   description: The Fauna Uakaris API allows users to manage a collection of uakaris.
   recommendedVersion: v1
+  recommendedDeployment: prod
   versions:
     - metadata:
         name: v1
@@ -37,6 +38,39 @@ data:
             data:
               filename: openapi.yaml
               mimeType: application/x.openapi+gzip;version=3.0
+  deployments:
+    - metadata:
+        name: prod
+        labels:
+          apihub-gateway: apihub-google-cloud-apigee
+          apihub-kind: enrolled
+          apihub-source: generate-animal-apis
+        annotations:
+          apihub-external-channel-name: Uakaris Developer Portal
+      data:
+        displayName: Prod
+        description: Production deployment
+        apiSpecRevision: v1/specs/openapi
+        endpointURI: https://uakaris.example.com
+        externalChannelURI: https://fauna-portal.example.com/uakaris
+        intendedAudience: Public
+        accessGuidance: Contact the Uakari Support Team for an API Key.
+    - metadata:
+        name: test
+        labels:
+          apihub-gateway: apihub-google-cloud-apigee
+          apihub-kind: enrolled
+          apihub-source: generate-animal-apis
+        annotations:
+          apihub-external-channel-name: Uakaris Developer Portal
+      data:
+        displayName: Test
+        description: Test deployment
+        apiSpecRevision: v1/specs/openapi
+        endpointURI: https://uakaris-test.example.com
+        externalChannelURI: https://fauna-portal.example.com/uakaris
+        intendedAudience: Internal
+        accessGuidance: Contact the Uakari Support Team for an API Key.
   artifacts:
     - kind: ReferenceList
       metadata:
