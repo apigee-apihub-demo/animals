@@ -110,9 +110,10 @@ func generateEnrollment(animal *Animal) error {
 			},
 		},
 		Data: encoding.ApiData{
-			DisplayName:        displayName,
-			Description:        "The " + cases.Title(language.English).String(provider) + " " + apiTitle + " API allows users to manage a collection of " + lowerPlural + ".",
-			RecommendedVersion: "v1",
+			DisplayName:           displayName,
+			Description:           "The " + cases.Title(language.English).String(provider) + " " + apiTitle + " API allows users to manage a collection of " + lowerPlural + ".",
+			RecommendedVersion:    "v1",
+			RecommendedDeployment: "prod",
 			ApiVersions: []*encoding.ApiVersion{
 				{
 					Header: encoding.Header{
@@ -145,6 +146,56 @@ func generateEnrollment(animal *Animal) error {
 								},
 							},
 						},
+					},
+				},
+			},
+			ApiDeployments: []*encoding.ApiDeployment{
+				{
+					Header: encoding.Header{
+						Metadata: encoding.Metadata{
+							Name: "prod",
+							Labels: map[string]string{
+								"apihub-source":  source,
+								"apihub-kind":    "enrolled",
+								"apihub-gateway": "apihub-google-cloud-apigee",
+							},
+							Annotations: map[string]string{
+								"apihub-external-channel-name": fmt.Sprintf("%s Developer Portal", upperPlural),
+							},
+						},
+					},
+					Data: encoding.ApiDeploymentData{
+						DisplayName:        "Prod",
+						Description:        "Production deployment",
+						ApiSpecRevision:    "v1/specs/openapi",
+						EndpointURI:        fmt.Sprintf("https://%s.example.com", lowerPlural),
+						ExternalChannelURI: fmt.Sprintf("https://%s-portal.example.com/%s", provider, lowerPlural),
+						IntendedAudience:   "Public",
+						AccessGuidance:     fmt.Sprintf("Contact the %s Support Team for an API Key.", upperSingular),
+					},
+				},
+				{
+					Header: encoding.Header{
+						Metadata: encoding.Metadata{
+							Name: "test",
+							Labels: map[string]string{
+								"apihub-source":  source,
+								"apihub-kind":    "enrolled",
+								"apihub-gateway": "apihub-google-cloud-apigee",
+							},
+							Annotations: map[string]string{
+								"apihub-external-channel-name": fmt.Sprintf("%s Developer Portal", upperPlural),
+							},
+						},
+					},
+					Data: encoding.ApiDeploymentData{
+						DisplayName:        "Test",
+						Description:        "Test deployment",
+						ApiSpecRevision:    "v1/specs/openapi",
+						EndpointURI:        fmt.Sprintf("https://%s-test.example.com", lowerPlural),
+						ExternalChannelURI: fmt.Sprintf("https://%s-portal.example.com/%s", provider, lowerPlural),
+						IntendedAudience:   "Internal",
+						AccessGuidance:     fmt.Sprintf("Contact the %s Support Team for an API Key.", upperSingular),
 					},
 				},
 			},

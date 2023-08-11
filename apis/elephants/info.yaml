@@ -18,6 +18,7 @@ data:
   displayName: Fauna Elephants API
   description: The Fauna Elephants API allows users to manage a collection of elephants.
   recommendedVersion: v1
+  recommendedDeployment: prod
   versions:
     - metadata:
         name: v1
@@ -37,6 +38,39 @@ data:
             data:
               filename: openapi.yaml
               mimeType: application/x.openapi+gzip;version=3.0
+  deployments:
+    - metadata:
+        name: prod
+        labels:
+          apihub-gateway: apihub-google-cloud-apigee
+          apihub-kind: enrolled
+          apihub-source: generate-animal-apis
+        annotations:
+          apihub-external-channel-name: Elephants Developer Portal
+      data:
+        displayName: Prod
+        description: Production deployment
+        apiSpecRevision: v1/specs/openapi
+        endpointURI: https://elephants.example.com
+        externalChannelURI: https://fauna-portal.example.com/elephants
+        intendedAudience: Public
+        accessGuidance: Contact the Elephant Support Team for an API Key.
+    - metadata:
+        name: test
+        labels:
+          apihub-gateway: apihub-google-cloud-apigee
+          apihub-kind: enrolled
+          apihub-source: generate-animal-apis
+        annotations:
+          apihub-external-channel-name: Elephants Developer Portal
+      data:
+        displayName: Test
+        description: Test deployment
+        apiSpecRevision: v1/specs/openapi
+        endpointURI: https://elephants-test.example.com
+        externalChannelURI: https://fauna-portal.example.com/elephants
+        intendedAudience: Internal
+        accessGuidance: Contact the Elephant Support Team for an API Key.
   artifacts:
     - kind: ReferenceList
       metadata:
