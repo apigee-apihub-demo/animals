@@ -3,12 +3,20 @@ info:
   version: 1.0.0
   title: Fauna Bandicoots API
   description: Manage a collection of bandicoots.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: Bandicoot Support Team
+    email: bandicoots@apigee-apihub-demo.github.io
+    url: https://github.com/apigee-apihub-demo/animals
 servers:
   - url: https://apigee-apihub-demo.github.io
 paths:
   /bandicoots:
     get:
       summary: List all bandicoots
+      description: List all bandicoots
       operationId: listBandicoots
       tags:
         - bandicoots
@@ -39,6 +47,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       summary: Create bandicoot
+      description: Create bandicoot
       operationId: createBandicoot
       tags:
         - bandicoots
@@ -54,6 +63,7 @@ paths:
   /bandicoots/{bandicootId}:
     get:
       summary: Info for a specific bandicoot
+      description: Info for a specific bandicoot
       operationId: getBandicoot
       tags:
         - bandicoots
@@ -108,3 +118,6 @@ components:
           format: int32
         message:
           type: string
+tags:
+  - name: bandicoots
+    description: This API is about bandicoots.

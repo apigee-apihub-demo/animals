@@ -3,12 +3,20 @@ info:
   version: 1.0.0
   title: Fauna Kangaroos API
   description: Manage a collection of kangaroos.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: Kangaroo Support Team
+    email: kangaroos@apigee-apihub-demo.github.io
+    url: https://github.com/apigee-apihub-demo/animals
 servers:
   - url: https://apigee-apihub-demo.github.io
 paths:
   /kangaroos:
     get:
       summary: List all kangaroos
+      description: List all kangaroos
       operationId: listKangaroos
       tags:
         - kangaroos
@@ -39,6 +47,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       summary: Create kangaroo
+      description: Create kangaroo
       operationId: createKangaroo
       tags:
         - kangaroos
@@ -54,6 +63,7 @@ paths:
   /kangaroos/{kangarooId}:
     get:
       summary: Info for a specific kangaroo
+      description: Info for a specific kangaroo
       operationId: getKangaroo
       tags:
         - kangaroos
@@ -108,3 +118,6 @@ components:
       maxItems: 100
       items:
         $ref: '#/components/schemas/Kangaroo'
+tags:
+  - name: kangaroos
+    description: This API is about kangaroos.

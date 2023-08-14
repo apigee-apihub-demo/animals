@@ -3,12 +3,20 @@ info:
   version: 1.0.0
   title: Fauna Nightingales API
   description: Manage a collection of nightingales.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: Nightingale Support Team
+    email: nightingales@apigee-apihub-demo.github.io
+    url: https://github.com/apigee-apihub-demo/animals
 servers:
   - url: https://apigee-apihub-demo.github.io
 paths:
   /nightingales:
     get:
       summary: List all nightingales
+      description: List all nightingales
       operationId: listNightingales
       tags:
         - nightingales
@@ -39,6 +47,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       summary: Create nightingale
+      description: Create nightingale
       operationId: createNightingale
       tags:
         - nightingales
@@ -54,6 +63,7 @@ paths:
   /nightingales/{nightingaleId}:
     get:
       summary: Info for a specific nightingale
+      description: Info for a specific nightingale
       operationId: getNightingale
       tags:
         - nightingales
@@ -108,3 +118,6 @@ components:
       maxItems: 100
       items:
         $ref: '#/components/schemas/Nightingale'
+tags:
+  - name: nightingales
+    description: This API is about nightingales.

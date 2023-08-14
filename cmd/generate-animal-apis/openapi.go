@@ -20,12 +20,31 @@ type OpenAPI struct {
 	Servers    []*OpenAPIServer        `yaml:"servers,omitempty"`
 	Paths      map[string]*OpenAPIPath `yaml:"paths"`
 	Components *OpenAPIComponents      `yaml:"components,omitempty"`
+	Tags       []*OpenAPITag           `yaml:"tags,omitempty"`
+}
+
+type OpenAPITag struct {
+	Name        string `yaml:"name,omitempty"`
+	Description string `yaml:"description,omitempty"`
 }
 
 type OpenAPIInfo struct {
-	Version     string `yaml:"version,omitempty"`
-	Title       string `yaml:"title,omitempty"`
-	Description string `yaml:"description,omitempty"`
+	Version     string              `yaml:"version,omitempty"`
+	Title       string              `yaml:"title,omitempty"`
+	Description string              `yaml:"description,omitempty"`
+	License     *OpenAPIInfoLicense `yaml:"license,omitempty"`
+	Contact     *OpenAPIInfoContact `yaml:"contact,omitempty"`
+}
+
+type OpenAPIInfoLicense struct {
+	Name string `yaml:"name,omitempty"`
+	Url  string `yaml:"url,omitempty"`
+}
+
+type OpenAPIInfoContact struct {
+	Name  string `yaml:"name,omitempty"`
+	Email string `yaml:"email,omitempty"`
+	Url   string `yaml:"url,omitempty"`
 }
 
 type OpenAPIServer struct {
@@ -39,6 +58,7 @@ type OpenAPIPath struct {
 
 type OpenAPIOperation struct {
 	Summary     string                      `yaml:"summary,omitempty"`
+	Description string                      `yaml:"description,omitempty"`
 	OperationID string                      `yaml:"operationId,omitempty"`
 	Tags        []string                    `yaml:"tags,omitempty"`
 	Parameters  []*OpenAPIParameter         `yaml:"parameters,omitempty"`

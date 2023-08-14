@@ -3,12 +3,20 @@ info:
   version: 1.0.0
   title: Fauna Monkeys API
   description: Manage a collection of monkeys.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: Monkey Support Team
+    email: monkeys@apigee-apihub-demo.github.io
+    url: https://github.com/apigee-apihub-demo/animals
 servers:
   - url: https://apigee-apihub-demo.github.io
 paths:
   /monkeys:
     get:
       summary: List all monkeys
+      description: List all monkeys
       operationId: listMonkeys
       tags:
         - monkeys
@@ -39,6 +47,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       summary: Create monkey
+      description: Create monkey
       operationId: createMonkey
       tags:
         - monkeys
@@ -54,6 +63,7 @@ paths:
   /monkeys/{monkeyId}:
     get:
       summary: Info for a specific monkey
+      description: Info for a specific monkey
       operationId: getMonkey
       tags:
         - monkeys
@@ -108,3 +118,6 @@ components:
       maxItems: 100
       items:
         $ref: '#/components/schemas/Monkey'
+tags:
+  - name: monkeys
+    description: This API is about monkeys.

@@ -3,12 +3,20 @@ info:
   version: 1.0.0
   title: Fauna Iguanas API
   description: Manage a collection of iguanas.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: Iguana Support Team
+    email: iguanas@apigee-apihub-demo.github.io
+    url: https://github.com/apigee-apihub-demo/animals
 servers:
   - url: https://apigee-apihub-demo.github.io
 paths:
   /iguanas:
     get:
       summary: List all iguanas
+      description: List all iguanas
       operationId: listIguanas
       tags:
         - iguanas
@@ -39,6 +47,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       summary: Create iguana
+      description: Create iguana
       operationId: createIguana
       tags:
         - iguanas
@@ -54,6 +63,7 @@ paths:
   /iguanas/{iguanaId}:
     get:
       summary: Info for a specific iguana
+      description: Info for a specific iguana
       operationId: getIguana
       tags:
         - iguanas
@@ -108,3 +118,6 @@ components:
       maxItems: 100
       items:
         $ref: '#/components/schemas/Iguana'
+tags:
+  - name: iguanas
+    description: This API is about iguanas.

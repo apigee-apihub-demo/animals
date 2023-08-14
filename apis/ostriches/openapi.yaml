@@ -3,12 +3,20 @@ info:
   version: 1.0.0
   title: Fauna Ostriches API
   description: Manage a collection of ostriches.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: Ostrich Support Team
+    email: ostriches@apigee-apihub-demo.github.io
+    url: https://github.com/apigee-apihub-demo/animals
 servers:
   - url: https://apigee-apihub-demo.github.io
 paths:
   /ostriches:
     get:
       summary: List all ostriches
+      description: List all ostriches
       operationId: listOstriches
       tags:
         - ostriches
@@ -39,6 +47,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       summary: Create ostrich
+      description: Create ostrich
       operationId: createOstrich
       tags:
         - ostriches
@@ -54,6 +63,7 @@ paths:
   /ostriches/{ostrichId}:
     get:
       summary: Info for a specific ostrich
+      description: Info for a specific ostrich
       operationId: getOstrich
       tags:
         - ostriches
@@ -108,3 +118,6 @@ components:
       maxItems: 100
       items:
         $ref: '#/components/schemas/Ostrich'
+tags:
+  - name: ostriches
+    description: This API is about ostriches.

@@ -3,12 +3,20 @@ info:
   version: 1.0.0
   title: Fauna Hedgehogs API
   description: Manage a collection of hedgehogs.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: Hedgehog Support Team
+    email: hedgehogs@apigee-apihub-demo.github.io
+    url: https://github.com/apigee-apihub-demo/animals
 servers:
   - url: https://apigee-apihub-demo.github.io
 paths:
   /hedgehogs:
     get:
       summary: List all hedgehogs
+      description: List all hedgehogs
       operationId: listHedgehogs
       tags:
         - hedgehogs
@@ -39,6 +47,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       summary: Create hedgehog
+      description: Create hedgehog
       operationId: createHedgehog
       tags:
         - hedgehogs
@@ -54,6 +63,7 @@ paths:
   /hedgehogs/{hedgehogId}:
     get:
       summary: Info for a specific hedgehog
+      description: Info for a specific hedgehog
       operationId: getHedgehog
       tags:
         - hedgehogs
@@ -108,3 +118,6 @@ components:
       maxItems: 100
       items:
         $ref: '#/components/schemas/Hedgehog'
+tags:
+  - name: hedgehogs
+    description: This API is about hedgehogs.

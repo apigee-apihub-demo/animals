@@ -3,12 +3,20 @@ info:
   version: 1.0.0
   title: Fauna Yaks API
   description: Manage a collection of yaks.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: Yak Support Team
+    email: yaks@apigee-apihub-demo.github.io
+    url: https://github.com/apigee-apihub-demo/animals
 servers:
   - url: https://apigee-apihub-demo.github.io
 paths:
   /yaks:
     get:
       summary: List all yaks
+      description: List all yaks
       operationId: listYaks
       tags:
         - yaks
@@ -39,6 +47,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       summary: Create yak
+      description: Create yak
       operationId: createYak
       tags:
         - yaks
@@ -54,6 +63,7 @@ paths:
   /yaks/{yakId}:
     get:
       summary: Info for a specific yak
+      description: Info for a specific yak
       operationId: getYak
       tags:
         - yaks
@@ -108,3 +118,6 @@ components:
       maxItems: 100
       items:
         $ref: '#/components/schemas/Yak'
+tags:
+  - name: yaks
+    description: This API is about yaks.

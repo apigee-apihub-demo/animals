@@ -3,12 +3,20 @@ info:
   version: 1.0.0
   title: Fauna Uakaris API
   description: Manage a collection of uakaris.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: Uakari Support Team
+    email: uakaris@apigee-apihub-demo.github.io
+    url: https://github.com/apigee-apihub-demo/animals
 servers:
   - url: https://apigee-apihub-demo.github.io
 paths:
   /uakaris:
     get:
       summary: List all uakaris
+      description: List all uakaris
       operationId: listUakaris
       tags:
         - uakaris
@@ -39,6 +47,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       summary: Create uakari
+      description: Create uakari
       operationId: createUakari
       tags:
         - uakaris
@@ -54,6 +63,7 @@ paths:
   /uakaris/{uakariId}:
     get:
       summary: Info for a specific uakari
+      description: Info for a specific uakari
       operationId: getUakari
       tags:
         - uakaris
@@ -108,3 +118,6 @@ components:
       maxItems: 100
       items:
         $ref: '#/components/schemas/Uakari'
+tags:
+  - name: uakaris
+    description: This API is about uakaris.

@@ -3,12 +3,20 @@ info:
   version: 1.0.0
   title: Fauna Crocodiles API
   description: Manage a collection of crocodiles.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: Crocodile Support Team
+    email: crocodiles@apigee-apihub-demo.github.io
+    url: https://github.com/apigee-apihub-demo/animals
 servers:
   - url: https://apigee-apihub-demo.github.io
 paths:
   /crocodiles:
     get:
       summary: List all crocodiles
+      description: List all crocodiles
       operationId: listCrocodiles
       tags:
         - crocodiles
@@ -39,6 +47,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       summary: Create crocodile
+      description: Create crocodile
       operationId: createCrocodile
       tags:
         - crocodiles
@@ -54,6 +63,7 @@ paths:
   /crocodiles/{crocodileId}:
     get:
       summary: Info for a specific crocodile
+      description: Info for a specific crocodile
       operationId: getCrocodile
       tags:
         - crocodiles
@@ -108,3 +118,6 @@ components:
           format: int32
         message:
           type: string
+tags:
+  - name: crocodiles
+    description: This API is about crocodiles.
