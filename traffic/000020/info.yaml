@@ -4,6 +4,7 @@ metadata:
   name: generate-animal-apis-ml7pxbo4h2t6cou3yr7navtvife245qr
   labels:
     apihub-kind: traffic
+    apihub-lifecycle: observed-traffic
     apihub-source: generate-animal-apis
 data:
   displayName: Traffic Observation 000020

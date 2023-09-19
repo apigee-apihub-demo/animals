@@ -91,8 +91,9 @@ func generateTraffic(id int, animal *Animal) error {
 			Metadata: encoding.Metadata{
 				Name: trafficApiID,
 				Labels: map[string]string{
-					"apihub-kind":   "traffic",
-					"apihub-source": source,
+					"apihub-kind":      "traffic",
+					"apihub-source":    source,
+					"apihub-lifecycle": "observed-traffic",
 				},
 				Annotations: map[string]string{},
 			},
