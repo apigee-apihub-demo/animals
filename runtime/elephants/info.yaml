@@ -12,7 +12,7 @@ items:
       annotations:
         proxy: apigee-apihub-demo/apis/fauna-elephants
     data:
-      displayName: 'apigee-apihub-demo proxy: fauna-elephants'
+      displayName: Proxy apigee-apihub-demo-fauna-elephants
       recommendedVersion: v1
       deployments:
         - metadata:
@@ -31,6 +31,25 @@ items:
             displayName: test-env (bar.org)
             endpointURI: bar.org
       artifacts:
+        - kind: ReferenceList
+          metadata:
+            name: apihub-related
+            labels:
+              apihub-source: generate-animal-apis
+          data:
+            displayName: Related Resources
+            description: Links to resources in the registry.
+            references:
+              - id: fauna-elephants
+                displayName: fauna-elephants
+                category: apihub-organization-apis
+                resource: projects/apigee-apihub-demo/locations/global/apis/fauna-elephants
+                uri: ""
+              - id: apigee-apihub-demo-petstore-product
+                displayName: 'apigee-apihub-demo product: petstore'
+                category: apihub-organization-apis
+                resource: projects/apigee-apihub-demo/locations/global/apis/generate-animal-apis-jocxgs2q2bnrzbv4s7ratcj4j2ec5h5u
+                uri: ""
         - kind: ReferenceList
           metadata:
             name: apihub-dependencies
@@ -53,7 +72,7 @@ items:
         organization: apigee-apihub-demo
         product: petstore
     data:
-      displayName: 'apigee-apihub-demo product: fauna-elephants'
+      displayName: Product apigee-apihub-demo-fauna-elephants
       artifacts:
         - kind: ReferenceList
           metadata:
@@ -66,12 +85,12 @@ items:
             references:
               - id: fauna-elephants
                 displayName: fauna-elephants
-                category: enrollment
+                category: apihub-organization-apis
                 resource: projects/apigee-apihub-demo/locations/global/apis/fauna-elephants
                 uri: ""
               - id: apigee-apihub-demo-petstore-proxy
                 displayName: 'apigee-apihub-demo proxy: petstore'
-                category: proxy
+                category: apihub-organization-apis
                 resource: projects/apigee-apihub-demo/locations/global/apis/generate-animal-apis-xyytpwxwfq6bslt3zoqrytogbrqyh4aa
                 uri: ""
         - kind: ReferenceList

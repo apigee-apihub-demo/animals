@@ -27,10 +27,10 @@ import (
 )
 
 const runtime = "runtime"
-const organization = "apigee-apihub-demo"
 
 func runtimeCommand() *cobra.Command {
 	var filename string
+	var project string
 	cmd := &cobra.Command{
 		Use:   "runtime",
 		Short: "Generate YAML for mock runtime signals",
@@ -41,7 +41,7 @@ func runtimeCommand() *cobra.Command {
 				return err
 			}
 			for _, animal := range animals.Animals {
-				if err = generateRuntimeMocks(&animal); err != nil {
+				if err = generateRuntimeMocks(project, &animal); err != nil {
 					return err
 				}
 			}
@@ -49,10 +49,11 @@ func runtimeCommand() *cobra.Command {
 		},
 	}
 	cmd.Flags().StringVar(&filename, "filename", "animals.yaml", "Animals definition file (YAML)")
+	cmd.Flags().StringVar(&project, "project", "apigee-apihub-demo", "API Hub GCP project")
 	return cmd
 }
 
-func generateRuntimeMocks(animal *Animal) error {
+func generateRuntimeMocks(project string, animal *Animal) error {
 	upperPlural := pluralize.NewClient().Plural(animal.Name)
 	lowerPlural := strings.ToLower(upperPlural)
 
@@ -60,6 +61,8 @@ func generateRuntimeMocks(animal *Animal) error {
 	fmt.Printf("generating %+v API\n", apiID)
 
 	enrolledApiID := provider + "-" + strings.ToLower(lowerPlural)
+	proxyApiID := source + "-" + encodeName(project+"-proxy-"+enrolledApiID)
+	productApiID := source + "-" + encodeName(project+"-product-"+enrolledApiID)
 
 	// Create output directory.
 	err := os.MkdirAll(filepath.Join(runtime, apiID), 0755)
@@ -68,7 +71,27 @@ func generateRuntimeMocks(animal *Animal) error {
 	}
 
 	// Generate info.yaml.
-
+	proxyRelatedResourcesData, err := encoding.NodeForMessage(&apihub.ReferenceList{
+		DisplayName: "Related Resources",
+		Description: "Links to resources in the registry.",
+		References: []*apihub.ReferenceList_Reference{
+			{
+				Id:          enrolledApiID,
+				DisplayName: enrolledApiID,
+				Category:    "apihub-organization-apis",
+				Resource:    "projects/" + project + "/locations/global/apis/" + enrolledApiID,
+			},
+			{
+				Id:          project + "-petstore-product",
+				DisplayName: project + " product: petstore",
+				Category:    "apihub-organization-apis",
+				Resource:    "projects/" + project + "/locations/global/apis/" + productApiID,
+			},
+		},
+	})
+	if err != nil {
+		return err
+	}
 	// TODO: Apigee dependencies should link to Apigee management interfaces
 	proxyDependenciesData, err := encoding.NodeForMessage(&apihub.ReferenceList{
 		DisplayName: "Apigee Dependencies",
@@ -78,7 +101,6 @@ func generateRuntimeMocks(animal *Animal) error {
 	if err != nil {
 		return err
 	}
-	proxyApiID := source + "-" + encodeName(organization+"-proxy-"+enrolledApiID)
 	proxy := &encoding.Api{
 		Header: encoding.Header{
 			ApiVersion: "apigeeregistry/v1",
@@ -86,18 +108,18 @@ func generateRuntimeMocks(animal *Animal) error {
 			Metadata: encoding.Metadata{
 				Name: proxyApiID,
 				Labels: map[string]string{
-					"apihub-business-unit": organization,
+					"apihub-business-unit": project,
 					"apihub-kind":          "proxy",
 					"apihub-source":        source,
 					"apihub-lifecycle":     "observed-proxy",
 				},
 				Annotations: map[string]string{
-					"proxy": organization + "/apis/" + provider + "-" + apiID,
+					"proxy": project + "/apis/" + provider + "-" + apiID,
 				},
 			},
 		},
 		Data: encoding.ApiData{
-			DisplayName:        organization + " proxy: " + provider + "-" + apiID,
+			DisplayName:        "Proxy " + project + "-" + provider + "-" + apiID,
 			RecommendedVersion: "v1",
 			ApiDeployments: []*encoding.ApiDeployment{
 				{
@@ -109,7 +131,7 @@ func generateRuntimeMocks(animal *Animal) error {
 								"apihub-kind":    "proxy",
 							},
 							Annotations: map[string]string{
-								"organization":         "apigee-apihub-demo",
+								"organization":         project,
 								"envgroup":             "demo",
 								"environment":          "test-env",
 								"proxy":                "petstore",
@@ -125,6 +147,18 @@ func generateRuntimeMocks(animal *Animal) error {
 				},
 			},
 			Artifacts: []*encoding.Artifact{
+				{
+					Header: encoding.Header{
+						Kind: "ReferenceList",
+						Metadata: encoding.Metadata{
+							Name: "apihub-related",
+							Labels: map[string]string{
+								"apihub-source": source,
+							},
+						},
+					},
+					Data: *proxyRelatedResourcesData,
+				},
 				{
 					Header: encoding.Header{
 						Kind: "ReferenceList",
@@ -149,14 +183,14 @@ func generateRuntimeMocks(animal *Animal) error {
 			{
 				Id:          enrolledApiID,
 				DisplayName: enrolledApiID,
-				Category:    "enrollment",
-				Resource:    "projects/apigee-apihub-demo/locations/global/apis/" + enrolledApiID,
+				Category:    "apihub-organization-apis",
+				Resource:    "projects/" + project + "/locations/global/apis/" + enrolledApiID,
 			},
 			{
-				Id:          "apigee-apihub-demo-petstore-proxy",
-				DisplayName: "apigee-apihub-demo proxy: petstore",
-				Category:    "proxy",
-				Resource:    "projects/apigee-apihub-demo/locations/global/apis/" + proxyApiID,
+				Id:          project + "-petstore-proxy",
+				DisplayName: project + " proxy: petstore",
+				Category:    "apihub-organization-apis",
+				Resource:    "projects/" + project + "/locations/global/apis/" + proxyApiID,
 			},
 		},
 	})
@@ -172,7 +206,6 @@ func generateRuntimeMocks(animal *Animal) error {
 	if err != nil {
 		return err
 	}
-	productApiID := source + "-" + encodeName(organization+"-product-"+enrolledApiID)
 	product := &encoding.Api{
 		Header: encoding.Header{
 			ApiVersion: "apigeeregistry/v1",
@@ -180,19 +213,19 @@ func generateRuntimeMocks(animal *Animal) error {
 			Metadata: encoding.Metadata{
 				Name: productApiID,
 				Labels: map[string]string{
-					"apihub-business-unit": organization,
+					"apihub-business-unit": project,
 					"apihub-kind":          "product",
 					"apihub-target-users":  "public",
 					"apihub-lifecycle":     "observed-product",
 				},
 				Annotations: map[string]string{
-					"organization": "apigee-apihub-demo",
+					"organization": project,
 					"product":      "petstore",
 				},
 			},
 		},
 		Data: encoding.ApiData{
-			DisplayName: organization + " product: " + provider + "-" + apiID,
+			DisplayName: "Product " + project + "-" + provider + "-" + apiID,
 			Artifacts: []*encoding.Artifact{
 				{
 					Header: encoding.Header{

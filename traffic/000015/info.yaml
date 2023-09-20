@@ -6,8 +6,11 @@ metadata:
     apihub-kind: traffic
     apihub-lifecycle: observed-traffic
     apihub-source: generate-animal-apis
+    apihub-target-users: internal
 data:
-  displayName: Traffic Observation 000015
+  displayName: Traffic 000015
+  recommendedVersion: v1
+  recommendedDeployment: example
   versions:
     - metadata:
         name: v1
@@ -16,6 +19,7 @@ data:
           apihub-source: generate-animal-apis
       data:
         displayName: v1
+        state: observed-traffic
         primarySpec: openapi
         specs:
           - metadata:
@@ -28,9 +32,12 @@ data:
               mimeType: application/x.openapi+gzip;version=3.0
   deployments:
     - metadata:
-        name: location
+        name: example
+        labels:
+          apihub-gateway: apihub-unmanaged
       data:
-        endpointURI: bar.org
+        displayName: example
+        endpointURI: https://example.com
   artifacts:
     - kind: ReferenceList
       metadata:
@@ -41,6 +48,6 @@ data:
         references:
           - id: fauna-porcupines
             displayName: Enrolled API
-            category: enrollment
+            category: apihub-organization-apis
             resource: projects/apigee-apihub-demo/locations/global/apis/fauna-porcupines
             uri: ""

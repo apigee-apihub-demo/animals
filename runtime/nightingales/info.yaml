@@ -12,7 +12,7 @@ items:
       annotations:
         proxy: apigee-apihub-demo/apis/fauna-nightingales
     data:
-      displayName: 'apigee-apihub-demo proxy: fauna-nightingales'
+      displayName: Proxy apigee-apihub-demo-fauna-nightingales
       recommendedVersion: v1
       deployments:
         - metadata:
@@ -31,6 +31,25 @@ items:
             displayName: test-env (bar.org)
             endpointURI: bar.org
       artifacts:
+        - kind: ReferenceList
+          metadata:
+            name: apihub-related
+            labels:
+              apihub-source: generate-animal-apis
+          data:
+            displayName: Related Resources
+            description: Links to resources in the registry.
+            references:
+              - id: fauna-nightingales
+                displayName: fauna-nightingales
+                category: apihub-organization-apis
+                resource: projects/apigee-apihub-demo/locations/global/apis/fauna-nightingales
+                uri: ""
+              - id: apigee-apihub-demo-petstore-product
+                displayName: 'apigee-apihub-demo product: petstore'
+                category: apihub-organization-apis
+                resource: projects/apigee-apihub-demo/locations/global/apis/generate-animal-apis-ug4mkjzuucequkibt7ycu5as2jwmxml7
+                uri: ""
         - kind: ReferenceList
           metadata:
             name: apihub-dependencies
@@ -53,7 +72,7 @@ items:
         organization: apigee-apihub-demo
         product: petstore
     data:
-      displayName: 'apigee-apihub-demo product: fauna-nightingales'
+      displayName: Product apigee-apihub-demo-fauna-nightingales
       artifacts:
         - kind: ReferenceList
           metadata:
@@ -66,12 +85,12 @@ items:
             references:
               - id: fauna-nightingales
                 displayName: fauna-nightingales
-                category: enrollment
+                category: apihub-organization-apis
                 resource: projects/apigee-apihub-demo/locations/global/apis/fauna-nightingales
                 uri: ""
               - id: apigee-apihub-demo-petstore-proxy
                 displayName: 'apigee-apihub-demo proxy: petstore'
-                category: proxy
+                category: apihub-organization-apis
                 resource: projects/apigee-apihub-demo/locations/global/apis/generate-animal-apis-4t67owiqj76ijdva736s6uodsefieuly
                 uri: ""
         - kind: ReferenceList
