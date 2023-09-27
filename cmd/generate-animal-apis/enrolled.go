@@ -34,6 +34,7 @@ const source = "generate-animal-apis"
 
 func enrolledCommand() *cobra.Command {
 	var filename string
+	var project string
 	cmd := &cobra.Command{
 		Use:   "enrolled",
 		Short: "Generate YAML for enrolled APIs",
@@ -44,7 +45,7 @@ func enrolledCommand() *cobra.Command {
 				return err
 			}
 			for _, animal := range animals.Animals {
-				if err = generateEnrollment(&animal); err != nil {
+				if err = generateEnrollment(project, &animal); err != nil {
 					return err
 				}
 			}
@@ -52,10 +53,11 @@ func enrolledCommand() *cobra.Command {
 		},
 	}
 	cmd.Flags().StringVar(&filename, "filename", "animals.yaml", "Animals definition file (YAML)")
+	cmd.Flags().StringVar(&project, "project", "apigee-apihub-demo", "API Hub GCP project")
 	return cmd
 }
 
-func generateEnrollment(animal *Animal) error {
+func generateEnrollment(project string, animal *Animal) error {
 	upperSingular := animal.Name
 	lowerSingular := strings.ToLower(upperSingular)
 	upperPlural := pluralize.NewClient().Plural(animal.Name)

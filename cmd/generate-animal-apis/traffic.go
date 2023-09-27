@@ -28,6 +28,7 @@ import (
 
 func trafficCommand() *cobra.Command {
 	var filename string
+	var project string
 	cmd := &cobra.Command{
 		Use:   "traffic",
 		Short: "Generate YAML for mock traffic signals",
@@ -38,7 +39,7 @@ func trafficCommand() *cobra.Command {
 				return err
 			}
 			for i, animal := range animals.Animals {
-				if err = generateTraffic(i, &animal); err != nil {
+				if err = generateTraffic(project, i, &animal); err != nil {
 					return err
 				}
 			}
@@ -46,12 +47,13 @@ func trafficCommand() *cobra.Command {
 		},
 	}
 	cmd.Flags().StringVar(&filename, "filename", "animals.yaml", "Animals definition file (YAML)")
+	cmd.Flags().StringVar(&project, "project", "apigee-apihub-demo", "API Hub GCP project")
 	return cmd
 }
 
 const traffic = "traffic"
 
-func generateTraffic(id int, animal *Animal) error {
+func generateTraffic(project string, id int, animal *Animal) error {
 	upperPlural := pluralize.NewClient().Plural(animal.Name)
 	lowerPlural := strings.ToLower(upperPlural)
 
@@ -59,7 +61,7 @@ func generateTraffic(id int, animal *Animal) error {
 
 	enrolledApiID := provider + "-" + strings.ToLower(lowerPlural)
 
-	trafficApiID := source + "-" + encodeName(organization+"-traffic-"+trafficID)
+	trafficApiID := source + "-" + encodeName(project+"-traffic-"+trafficID)
 	fmt.Printf("generating %+v API\n", trafficApiID)
 
 	// Create output directory.
@@ -76,8 +78,8 @@ func generateTraffic(id int, animal *Animal) error {
 			{
 				Id:          enrolledApiID,
 				DisplayName: "Enrolled API",
-				Category:    "enrollment",
-				Resource:    "projects/apigee-apihub-demo/locations/global/apis/" + enrolledApiID,
+				Category:    "apihub-organization-apis",
+				Resource:    "projects/" + project + "/locations/global/apis/" + enrolledApiID,
 			},
 		},
 	})
@@ -91,14 +93,17 @@ func generateTraffic(id int, animal *Animal) error {
 			Metadata: encoding.Metadata{
 				Name: trafficApiID,
 				Labels: map[string]string{
-					"apihub-kind":   "traffic",
-					"apihub-source": source,
+					"apihub-kind":         "traffic",
+					"apihub-source":       source,
+					"apihub-target-users": "internal",
 				},
 				Annotations: map[string]string{},
 			},
 		},
 		Data: encoding.ApiData{
-			DisplayName: fmt.Sprintf("Traffic Observation %s", trafficID),
+			DisplayName:           fmt.Sprintf("Traffic %s", trafficID),
+			RecommendedVersion:    "v1",
+			RecommendedDeployment: "example",
 			ApiVersions: []*encoding.ApiVersion{
 				{
 					Header: encoding.Header{
@@ -113,6 +118,7 @@ func generateTraffic(id int, animal *Animal) error {
 					Data: encoding.ApiVersionData{
 						DisplayName: "v1",
 						PrimarySpec: "openapi",
+						State:       "observed-traffic",
 						ApiSpecs: []*encoding.ApiSpec{
 							{
 								Header: encoding.Header{
@@ -137,11 +143,15 @@ func generateTraffic(id int, animal *Animal) error {
 				{
 					Header: encoding.Header{
 						Metadata: encoding.Metadata{
-							Name: "location",
+							Name: "example",
+							Labels: map[string]string{
+								"apihub-gateway": "apihub-unmanaged",
+							},
 						},
 					},
 					Data: encoding.ApiDeploymentData{
-						EndpointURI: "bar.org",
+						DisplayName: "example",
+						EndpointURI: "https://example.com",
 					},
 				},
 			},
