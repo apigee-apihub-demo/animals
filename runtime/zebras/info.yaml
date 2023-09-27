@@ -7,7 +7,6 @@ items:
       labels:
         apihub-business-unit: apigee-apihub-demo
         apihub-kind: proxy
-        apihub-lifecycle: observed-proxy
         apihub-source: generate-animal-apis
       annotations:
         proxy: apigee-apihub-demo/apis/fauna-zebras
@@ -66,7 +65,6 @@ items:
       labels:
         apihub-business-unit: apigee-apihub-demo
         apihub-kind: product
-        apihub-lifecycle: observed-product
         apihub-target-users: public
       annotations:
         organization: apigee-apihub-demo

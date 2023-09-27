@@ -4,7 +4,6 @@ metadata:
   name: generate-animal-apis-axj2wd3gsm2holwoz2qjdivjthwgppri
   labels:
     apihub-kind: traffic
-    apihub-lifecycle: observed-traffic
     apihub-source: generate-animal-apis
     apihub-target-users: internal
 data:

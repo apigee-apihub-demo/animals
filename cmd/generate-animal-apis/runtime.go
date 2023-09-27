@@ -111,7 +111,6 @@ func generateRuntimeMocks(project string, animal *Animal) error {
 					"apihub-business-unit": project,
 					"apihub-kind":          "proxy",
 					"apihub-source":        source,
-					"apihub-lifecycle":     "observed-proxy",
 				},
 				Annotations: map[string]string{
 					"proxy": project + "/apis/" + provider + "-" + apiID,
@@ -216,7 +215,6 @@ func generateRuntimeMocks(project string, animal *Animal) error {
 					"apihub-business-unit": project,
 					"apihub-kind":          "product",
 					"apihub-target-users":  "public",
-					"apihub-lifecycle":     "observed-product",
 				},
 				Annotations: map[string]string{
 					"organization": project,

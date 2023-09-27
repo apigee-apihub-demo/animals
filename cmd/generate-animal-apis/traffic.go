@@ -95,7 +95,6 @@ func generateTraffic(project string, id int, animal *Animal) error {
 				Labels: map[string]string{
 					"apihub-kind":         "traffic",
 					"apihub-source":       source,
-					"apihub-lifecycle":    "observed-traffic",
 					"apihub-target-users": "internal",
 				},
 				Annotations: map[string]string{},
