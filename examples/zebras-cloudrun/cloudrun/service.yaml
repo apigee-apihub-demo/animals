@@ -1,0 +1,20 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: zebras-example
+spec:
+  template:
+    spec:
+      containers:
+      - image: gcr.io/endpoints-release/endpoints-runtime:2
+        name: espv2
+        args:
+        - --listener_port=8081
+        - --backend=http://localhost:8080
+        - --service=zebras.endpoints.apigee-apihub-demo.cloud.goog
+        - --rollout_strategy=managed
+        ports:
+        - name: http1
+          containerPort: 8081
+      - image: us-west1-docker.pkg.dev/apigee-apihub-demo/animals/animals:latest
+        name: animals

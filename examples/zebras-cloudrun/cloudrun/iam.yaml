@@ -1,0 +1,5 @@
+bindings:
+- members:
+  - allUsers
+  role: roles/run.invoker
+version: 1
